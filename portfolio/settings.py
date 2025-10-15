@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ==============================
 
 #  En producción, nunca dejes la clave secreta en texto plano
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-d4udayxjggku14cu1irnpa!2(jf#bnh@&fh4*^xpem_ojvr^57')
+SECRET_KEY = config('SECRET_KEY')
 
 #  Activar/desactivar modo debug según entorno
 DEBUG = config('DEBUG', default=True, cast=bool)
