@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_extra %}
+  <link rel="stylesheet" href="{% static 'css/error.css' %}">
+{% endblock %}
+
+{% block title %}En desarrollo - Mi Portafolio{% endblock %}
+
+{% block content %}
+<section class="error-page">
+  <div class="error-page__container">
+    <!-- Ilustración -->
+    <div class="error-page__illustration">
+      <img src="{% static 'img/construction.svg' %}" alt="Página en desarrollo">
+    </div>
+
+    <!-- Título -->
+    <h1 class="error-page__title">En desarrollo</h1>
+
+    <!-- Subtítulo -->
+    <p class="error-page__subtitle">
+      Estamos trabajando en esta sección. Pronto estará disponible.
+    </p>
+
+    <!-- Botón -->
+    <a href="{% url 'web:home' %}" class="btn">Volver al inicio</a>
+  </div>
+</section>
+{% endblock %}

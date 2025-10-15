@@ -1,0 +1,327 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Inicio - Mi Portafolio{% endblock %}
+
+{% block content %}
+
+<!-- =============================
+       HERO
+============================= -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-title_row">
+      <span class="hero-static">you can</span>
+      <div class="hero-word_stack">
+        <span class="hero-word hero-word_prev">design.</span>
+        <div class="hero-dynamic_box">
+          <span class="hero-word hero-word_current">solve.</span>
+        </div>
+        <span class="hero-word hero-word_next">build.</span>
+      </div>
+    </div>
+    <p class="hero-scroll">scroll down ↓</p>
+  </div>
+
+  <div class="hero-right">
+    <!-- Imagen que se adapta a claro/oscuro automáticamente -->
+    <div class="hero-img"></div>
+  </div>
+</section>
+
+
+<!-- =============================
+       ABOUT
+============================= -->
+<section id="about">
+  <div class="section-title">
+    <h2>Sobre mí</h2>
+    <p class="subtitle">Diseñador & Desarrollador Web</p>
+  </div>
+
+  <div class="about">
+    <!-- Columna izquierda: Card -->
+    <div class="about-card">
+      <!-- Minimapa -->
+      <div class="minimap">
+        <span>x: 0</span>
+        <span>y: 0</span>
+      </div>
+
+      <!-- Tarjeta holográfica -->
+      <div class="card3d" role="region" aria-label="Tarjeta holográfica de Carlos" data-active="false">
+        <div class="card3d-inner">
+
+          <!-- Frente -->
+          <div class="card3d-front">
+            <h3 class="card3d-name"></h3>
+
+            <!-- Fondo con highlight -->
+            <div class="card3d-bg">
+              <div class="face-highlight"></div>
+            </div>
+            <div class="glare"></div>
+
+            <!-- Logos -->
+            <section class="logo-grid" aria-label="Tecnologías favoritas">
+              <div class="logo" style="--icon: url('{% static 'img/adobe.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/bootstrap.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/canva.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/css3.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/database.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/django.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/figma.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/github.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/illustrator.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/indesign.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/js.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/linux.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/notion.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/photoshop.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+              <div class="logo" style="--icon: url('{% static 'img/python.svg' %}')">
+                <div class="logo-icon"></div>
+              </div>
+            </section>
+
+            <!-- Marca de agua -->
+            <div class="watermark">© 2025</div>
+
+            <!-- Flecha -->
+            <div class="arrow">↓</div>
+
+            <!-- Botón flip -->
+            <button class="flip-btn" aria-pressed="false">
+              Voltear
+            </button>
+          </div>
+
+          <!-- Reverso -->
+          <div class="card3d-back">
+            <div class="back-content">
+              <div class="back-title">Mis redes</div>
+              <div class="social-icons">
+                <a href="https://linkedin.com" target="_blank" rel="noopener">
+                  <img src="{% static 'img/linkedin.svg' %}" alt="LinkedIn" />
+                </a>
+                <a href="https://github.com" target="_blank" rel="noopener">
+                  <img src="{% static 'img/github.svg' %}" alt="GitHub" />
+                </a>
+                <a href="https://wa.me/123456789" target="_blank" rel="noopener">
+                  <img src="{% static 'img/whatsapp.svg' %}" alt="WhatsApp" />
+                </a>
+              </div>
+            </div>
+            <button class="flip-btn">Ver frente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <div class="about-content">
+
+  {% if profile %}
+    <h2 class="about-title">{{ profile.name }}</h3>
+    <p>{{ profile.description }}</p>
+  {% else %}
+    <p>No hay información disponible por el momento.</p>
+  {% endif %}
+
+  <div class="about-buttons">
+    <a href="{% url 'web:about' %}" class="btn about-btn">Ver más sobre mí</a>
+  </div>
+</div>
+  </div>
+</section>
+
+
+<!-- =============================
+       SKILLS
+============================= -->
+<section class="skills" id="skills">
+  <!-- Fondo animado con rejilla de íconos -->
+  <div class="skills-bg">
+    <ul>
+      <li><img src="" alt="HTML"></li>
+      <li><img src="" alt="CSS"></li>
+      <li><img src="}" alt="JavaScript"></li>
+    </ul>
+    <ul>
+      <li><img src="" alt="Python"></li>
+      <li><img src="}" alt="Django"></li>
+    </ul>
+    <ul>
+      <li><img src="" alt="Photoshop"></li>
+      <li><img src="" alt="Illustrator"></li>
+    </ul>
+    <ul>
+      <li><img src="" alt="Git"></li>
+      <li><img src="" alt="Figma"></li>
+    </ul>
+  </div>
+
+  <!-- Contenedor principal del contenido -->
+  <div class="container">
+    <div class="container-title">
+      <h2 class="skill-title">Mis Habilidades</h2>
+    </div>
+
+    <div class="skills-content">
+      <div class="skills-categories">
+        <div class="skill-category active" data-category="frontend">
+          <span class="arrow">&gt;</span>
+          <span class="category-title">Frontend</span>
+        </div>
+        <div class="skill-category" data-category="backend">
+          <span class="arrow">&gt;</span>
+          <span class="category-title">Backend</span>
+        </div>
+        <div class="skill-category" data-category="design">
+          <span class="arrow">&gt;</span>
+          <span class="category-title">Diseño & Multimedia</span>
+        </div>
+        <div class="skill-category" data-category="tools">
+          <span class="arrow">&gt;</span>
+          <span class="category-title">Herramientas</span>
+        </div>
+      </div>
+
+      <div class="skills-box">
+        <h3 class="skills-title">Frontend</h3>
+        <div class="skills-list" id="skills-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================
+       PROJECTS
+============================= -->
+<section class="projects" id="projects">
+  <!-- Partículas de fondo -->
+  <div id="tsparticles"></div>
+
+  <!-- Título de sección -->
+  <div class="section-title">
+    <h2>Proyectos</h2>
+    <p class="subtitle">Interfaz + Código + Experiencia</p>
+  </div>
+
+  <!-- Contenedor de proyectos -->
+  <div class="projects-container">
+    <div class="projects-grid">
+      {% for p in projects %}
+      <article class="project">
+        <div class="project-image">
+          {% if p.featured_image %}
+          <img src="{{ p.featured_image.url }}" alt="{{ p.title }}">
+          {% else %}
+          <img src="{{ p.featured_image.url }}" alt="{{ p.title }}">
+          {% endif %}
+          <div class="project__glare"></div>
+        </div>
+        <div class="project-content">
+          <h3 class="project-title">{{ p.title }}</h3>
+          <p class="project-desc">{{ p.excerpt }}</p>
+          <a href="{% url 'web:project_detail' p.slug %}" class="project-link" target="_blank">Ver proyecto</a>
+        </div>
+      </article>
+      {% empty %}
+      <p>No hay proyectos todavía.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- =============================
+       CONTACT
+============================= -->
+<section class="theme-compare" data-theme="light" id="contact">
+  <!-- Fondo lado claro -->
+  <div class="theme-side theme-light"></div>
+
+  <!-- Fondo lado oscuro -->
+  <div class="theme-side theme-dark"></div>
+
+  <div class="contact-heading" aria-label="Contáctame">
+    <span class="heading-left" aria-hidden="true">Contáctame</span>
+    <span class="heading-right" aria-hidden="true">Contáctame</span>
+  </div>
+
+  <!-- Contenido único -->
+  <div class="contact-inner">
+    <div class="contact-content">
+      <!-- Izquierda -->
+      <div class="contact-left">
+        <form class="contact-form" action="#" method="post" novalidate>
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <textarea name="message" rows="6" placeholder="Message" required></textarea>
+          <button type="submit">Send</button>
+        </form>
+      </div>
+
+      <!-- Derecha -->
+      <div class="contact-right">
+        <div class="contact-info">
+          <i class="fa-solid fa-location-dot"></i>
+          <p>City, State</p>
+        </div>
+        <div class="contact-info">
+          <i class="fa-solid fa-phone"></i>
+          <p>(212) 555-2368</p>
+        </div>
+        <div class="contact-info">
+          <i class="fa-solid fa-envelope"></i>
+          <p>hitmeup@gmail.com</p>
+        </div>
+
+        <div class="contact-divider"></div>
+
+        <div class="contact-icons">
+          <a href="#"><i class="fa-brands fa-github"></i></a>
+          <a href="#"><i class="fa-brands fa-dribbble"></i></a>
+          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+
+        <div class="contact-divider"></div>
+        <div class="contact-footer">© ALL OF THE RIGHTS RESERVED</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Handle -->
+  <button class="theme-handle" aria-label="Mover divisor">⇆</button>
+</section>
+
+{% endblock %}

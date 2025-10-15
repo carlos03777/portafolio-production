@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_extra %}
+  <!-- Estilos específicos para la vista de perfil -->
+  <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- =============================
+       DETALLE DE PERFIL
+============================== -->
+<section class="about-detail">
+  
+  <!-- =============================
+        ENCABEZADO (HERO)
+  ============================== -->
+  <header class="about-detail__header">
+    <div class="about-detail__header-overlay"></div>
+
+    <!-- {% if profile.photo %}
+      <img src="{{ profile.photo.url }}" alt="{{ profile.name }}" class="project-detail__header-image">
+    {% else %}
+      <img src="{% static 'img/default-profile.png' %}" alt="Foto de perfil" class="project-detail__header-image">
+    {% endif %} -->
+
+    <div class="about-detail__header-content">
+      <h1 class="about-detail_title">{{ profile.name }}</h1>
+      <p class="about-detail__subtitle">{{ profile.title }}</p>
+    </div>
+  </header>
+
+  <!-- =============================
+        CONTENIDO PRINCIPAL
+  ============================== -->
+  <div class="about-detail__body container">
+
+    <!-- FOTO DE PERFIL -->
+    <div class="about-detail__gallery" >
+      {% if profile.photo %}
+        <img src="{{ profile.photo.url }}" alt="{{ profile.name }}">
+      {% else %}
+        <img src="{% static 'img/default-profile.png' %}" alt="Foto de perfil">
+      {% endif %}
+    </div>
+
+    <!-- DESCRIPCIÓN -->
+    <div class="about-detail__description">
+      <p>{{ profile.description|linebreaks }}</p>
+    </div>
+
+    <!-- REDES SOCIALES -->
+    <div class="about-detail__tech">
+      <h3 class="about-detail__tech-title">Conecta conmigo</h3>
+      <ul class="about-detail__tech-list">
+        {% if profile.github %}
+          <li class="about-detail__tech-item">
+            <a href="{{ profile.github }}" target="_blank" rel="noopener">GitHub</a>
+          </li>
+        {% endif %}
+        {% if profile.linkedin %}
+          <li class="about-detail__tech-item">
+            <a href="{{ profile.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
+          </li>
+        {% endif %}
+        {% if profile.behance %}
+          <li class="about-detail__tech-item">
+            <a href="{{ profile.behance }}" target="_blank" rel="noopener">Behance</a>
+          </li>
+        {% endif %}
+        {% if profile.instagram %}
+          <li class="about-detail__tech-item">
+            <a href="{{ profile.instagram }}" target="_blank" rel="noopener">Instagram</a>
+          </li>
+        {% endif %}
+        {% if profile.website %}
+          <li class="about-detail__tech-item">
+            <a href="{{ profile.website }}" target="_blank" rel="noopener">Sitio web</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <!-- ENLACES -->
+    <div class="about-detail__links">
+      {% if profile.cv_file %}
+        <a href="{{ profile.cv_file.url }}" class="about-detail__btn-link" download>
+          Descargar CV
+        </a>
+      {% endif %}
+      {% if profile.email %}
+        <a href="mailto:{{ profile.email }}" class="about-detail__btn-link">
+          Contactar
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+  <!-- Script para animaciones o interacciones del perfil -->
+  <script src="{% static 'js/about-detail.js' %}" defer></script>
+{% endblock %}

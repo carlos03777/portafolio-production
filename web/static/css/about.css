@@ -1,0 +1,249 @@
+/* ============================
+   ABOUT DETAIL (PERFIL)
+============================ */
+.about-detail {
+  position: relative;
+  padding: 0rem 0 6rem;
+  background: transparent;
+}
+
+/* ================= HEADER ================= */
+.about-detail__header {
+  position: relative;
+  height: 45vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text);
+}
+
+.about-detail__header-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4));
+}
+
+.about-detail__header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.about-detail__title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.about-detail__subtitle {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+/* ================= BODY ================= */
+.about-detail__body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem 3rem;
+  color: var(--text);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem 4rem;
+  align-items: start;
+}
+
+/* ================= FOTO DE PERFIL ================= */
+.about-detail__gallery {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.about-detail__gallery img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 20px;
+  object-fit: cover;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  transition: transform 0.4s ease;
+}
+
+.about-detail__gallery img:hover {
+  transform: scale(1.05);
+}
+
+/* ================= DESCRIPCIÓN ================= */
+.about-detail__description {
+  line-height: 1.85;
+  font-size: 0.8rem;
+  color: var(--text);
+  text-align: justify;
+  letter-spacing: 0.3px;
+  padding-top: 0.5rem;
+}
+
+/* ================= REDES SOCIALES ================= */
+.about-detail__tech {
+  grid-column: 1 / 3;
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.about-detail__tech-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  color: var(--text);
+  margin-bottom: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s ease forwards;
+}
+
+/* Línea roja animada debajo del título */
+.about-detail__tech-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 3px;
+  background-color: var(--accent);
+  border-radius: 3px;
+  animation: lineGrow 1s ease 0.5s forwards;
+}
+
+.about-detail__tech-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.2rem 2rem;
+}
+
+.about-detail__tech-item a {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+  font-size: 1.05rem;
+}
+
+.about-detail__tech-item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.about-detail__tech-item a:hover {
+  color: var(--text);
+  transform: translateY(-2px);
+}
+
+.about-detail__tech-item a:hover::after {
+  width: 100%;
+}
+
+/* ================= ENLACES (CV / CONTACTO) ================= */
+.about-detail__links {
+  grid-column: 1 / 3;
+  margin-top: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+}
+
+.about-detail__btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.9rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(229, 80, 80, 0.35);
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.about-detail__btn-link:hover {
+  transform: translateY(-4px) scale(1.03);
+  background: #ff6a6a;
+  box-shadow: 0 8px 25px rgba(229, 80, 80, 0.45);
+}
+
+/* 🔥 Animaciones reutilizables */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lineGrow {
+  to {
+    width: 60%;
+  }
+}
+
+/* ================= RESPONSIVO ================= */
+@media (max-width: 992px) {
+  .about-detail__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 3rem;
+    padding-top: 4rem;
+  }
+
+  .about-detail__gallery img {
+    max-width: 260px;
+  }
+
+  .about-detail__description {
+    text-align: justify;
+    max-width: 90%;
+  }
+
+  .about-detail__tech,
+  .about-detail__links {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-detail__body {
+    padding: 3rem 1.5rem;
+  }
+
+  .about-detail__gallery img {
+    max-width: 220px;
+  }
+
+  .about-detail__description {
+    font-size: 0.95rem;
+  }
+
+  .about-detail__btn-link {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.3rem;
+  }
+}

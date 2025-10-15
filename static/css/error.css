@@ -1,0 +1,106 @@
+/* ============================
+   ESTILOS PÁGINAS DE ERROR
+============================ */
+
+/* --- SECCIÓN GENERAL --- */
+.error-section,
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  text-align: center;
+  color: var(--color-text);
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* --- CONTENEDORES --- */
+.error-container,
+.error-page__container {
+  max-width: 600px;
+  width: 100%;
+  padding: 2.5rem;
+  border-radius: 20px;
+  background: var(--color-secondary);
+  box-shadow: 0 4px 25px var(--box-shadow);
+  backdrop-filter: blur(3px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.error-container:hover,
+.error-page__container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 28px var(--card-shadow);
+}
+
+/* --- ILUSTRACIÓN --- */
+.error-image,
+.error-page__illustration img {
+  width: 220px;
+  height: auto;
+  margin: 0 auto 1.5rem;
+  display: block;
+  opacity: 0.95;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* --- TÍTULOS --- */
+.error-title,
+.error-page__title {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+  color: var(--color-primary);
+  letter-spacing: 1px;
+}
+
+/* --- SUBTÍTULOS / TEXTOS --- */
+.error-text,
+.error-page__subtitle {
+  font-size: 1.1rem;
+  color: var(--color-muted);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* --- BOTONES --- */
+.btn,
+.btn.btn-primary {
+  display: inline-block;
+  padding: 0.85rem 1.8rem;
+  border-radius: 50px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover,
+.btn.btn-primary:hover {
+  background: var(--accent);
+  transform: scale(1.05);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+  .error-container,
+  .error-page__container {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .error-title,
+  .error-page__title {
+    font-size: 2.6rem;
+  }
+
+  .error-image,
+  .error-page__illustration img {
+    width: 160px;
+    margin-bottom: 1rem;
+  }
+}

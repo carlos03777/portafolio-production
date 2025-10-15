@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block head_extra %}
+  <link rel="stylesheet" href="{% static 'css/error.css' %}">
+{% endblock %}
+{% block title %}Error interno del servidor - Mi Portafolio{% endblock %}
+
+{% block content %}
+<section class="error-section">
+  <div class="error-container">
+    <img src="{% static 'img/500.svg' %}" alt="Error interno del servidor" class="error-image">
+    <h1 class="error-title">500</h1>
+    <p class="error-text">Ha ocurrido un error interno. Estamos trabajando en solucionarlo.</p>
+    <a href="{% url 'web:home' %}" class="btn btn-primary">Volver al inicio</a>
+  </div>
+</section>
+{% endblock %}

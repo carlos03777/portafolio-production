@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_extra %}
+  <!-- Estilos específicos para la vista de detalle de proyectos -->
+  <link rel="stylesheet" href="{% static 'css/project.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- =============================
+       DETALLE DE PROYECTO
+============================== -->
+<section class="project-detail">
+  
+  <!-- =============================
+        ENCABEZADO (HERO)
+  ============================== -->
+  <header class="project-detail__header">
+    <div class="project-detail__header-overlay"></div>
+
+<!--     
+    { {% if project.featured_image %}
+      <img src="{{ project.featured_image.url }}" alt="{{ project.title }}" class="project-detail__header-image">
+    {% endif %} #} -->
+
+    <div class="project-detail__header-content">
+      <h1 class="project-detail__title">{{ project.title }}</h1>
+      <p class="project-detail__subtitle">{{ project.excerpt }}</p>
+    </div>
+  </header>
+
+  <!-- =============================
+        CONTENIDO PRINCIPAL
+  ============================== -->
+  <div class="project-detail__body container">
+
+    <!-- GALERÍA -->
+    <div class="project-detail__gallery">
+      {% for i in images %}
+        <img src="{{ i.image.url }}" alt="{{ project.title }} preview">
+      {% empty %}
+        <img src="{% static 'img/default-device.png' %}" alt="Preview genérica">
+      {% endfor %}
+    </div>
+
+    <!-- VIDEO -->
+    {% if project.video_url %}
+      <div class="project-detail__video">
+        {% if "youtube.com" in project.video_url or "youtu.be" in project.video_url %}
+          <iframe
+            src="https://www.youtube.com/embed/{{ project.video_url|cut:'https://www.youtube.com/watch?v='|cut:'https://youtu.be/' }}"
+            title="{{ project.title }}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+        {% else %}
+          <video controls poster="{{ project.featured_image.url }}">
+            <source src="{{ project.video_url }}" type="video/mp4">
+            Tu navegador no soporta video HTML5.
+          </video>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <!-- DESCRIPCIÓN -->
+    <div class="project-detail__description">
+      {{ project.description|linebreaks }}
+    </div>
+
+    <!-- TECNOLOGÍAS -->
+    {% if project.technologies.all %}
+      <div class="project-detail__tech">
+        <h3 class="project-detail__tech-title">Tecnologías usadas</h3>
+        <ul class="project-detail__tech-list">
+          {% for tech in project.technologies.all %}
+            <li class="project-detail__tech-item">{{ tech.name }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <!-- ENLACES -->
+    <div class="project-detail__links">
+      {% if project.live_url %}
+        <a href="{{ project.live_url }}" class="project-detail__btn-link" target="_blank">Ver sitio</a>
+      {% endif %}
+      {% if project.repo_url %}
+        <a href="{{ project.repo_url }}" class="project-detail__btn-link" target="_blank">Repositorio</a>
+      {% endif %}
+    </div>
+
+    <!-- NAVEGACIÓN ENTRE PROYECTOS -->
+    <div class="project-detail__nav">
+      {% if project.get_previous_by_created_at %}
+        <a href="{% url 'web:project_detail' project.get_previous_by_created_at.slug %}" 
+           class="project-detail__nav-btn prev">
+           ← Proyecto anterior
+        </a>
+      {% endif %}
+
+      {% if project.get_next_by_created_at %}
+        <a href="{% url 'web:project_detail' project.get_next_by_created_at.slug %}" 
+           class="project-detail__nav-btn next">
+           Siguiente proyecto →
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+  <!-- Script para animaciones o interacciones del detalle de proyecto -->
+  <script src="{% static 'js/project-detail.js' %}" defer></script>
+{% endblock %}
