@@ -1,33 +1,27 @@
-# =====================================
-# DJANGO / PYTHON BASICS
-# =====================================
-__pycache__/
-*.py[cod]
-*.sqlite3
-*.log
-
-# =====================================
-# ENVIRONMENTS
-# =====================================
-env/
-venv/
+# Environment secrets
 .env
 
-# =====================================
-# STATIC & MEDIA (Railway / AWS)
-# =====================================
+# Database
+*.sqlite3
+*.db
+
+# Django generated
 staticfiles/
 media/
+__pycache__/
 
-# =====================================
-# IDEs / SYSTEM FILES
-# =====================================
-.vscode/
-.idea/
+# Virtual environment
+env/
+
+# Python cache
+*.pyc
+*.pyo
+*.pyd
+
+# OS
 .DS_Store
 Thumbs.db
 
-# =====================================
-# Migrations cache (opcional)
-# =====================================
-*/migrations/__pycache__/
+# Logs
+*.log
+logs/
