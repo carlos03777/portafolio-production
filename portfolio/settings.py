@@ -1,12 +1,10 @@
 """
 Django settings for portfolio project.
-
-Generado por 'django-admin startproject' usando Django 5.2.6.
 """
 
 from pathlib import Path
 import os
-from decouple import config  #  Permite leer variables desde .env o entorno (Railway)
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -14,40 +12,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #  SEGURIDAD Y CONFIGURACIÓN BÁSICA
 # ==============================
 
-#  En producción, nunca dejes la clave secreta en texto plano
 SECRET_KEY = config('SECRET_KEY')
-
-#  Activar/desactivar modo debug según entorno
 DEBUG = config('DEBUG', default=True, cast=bool)
-
-#  Hosts permitidos (Railway, tu dominio, etc.)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,.railway.app').split(',')
 
 # ==============================
 #  APLICACIONES INSTALADAS
 # ==============================
 
 INSTALLED_APPS = [
-    'jazzmin',  # Interfaz de administración mejorada
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    #  Tus apps locales
     'web',
     'storages'
 ]
 
 # ==============================
-#  MIDDLEWARE
+#  MIDDLEWARE (CORREGIDO)
 # ==============================
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # 🔹 COMA AÑADIDA
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -65,7 +56,7 @@ ROOT_URLCONF = 'portfolio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],  # 🔹 Carpeta global de templates
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,9 +74,6 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 #  BASE DE DATOS
 # ==============================
 
-#  Por defecto usa SQLite (local)
-#  Si hay DATABASE_URL en entorno (Railway/Postgres), la usa automáticamente
-
 import dj_database_url
 
 DATABASES = {
@@ -97,21 +85,10 @@ DATABASES = {
     )
 }
 
-
 CSRF_TRUSTED_ORIGINS = [
     'https://web-production-3cca.up.railway.app',
     'https://*.railway.app'
 ]
-
-
-
-ALLOWED_HOSTS = [
-    'web-production-3cca.up.railway.app',
-    '*.railway.app',
-    'localhost',
-    '127.0.0.1'
-]
-
 
 # ==============================
 #  VALIDACIÓN DE CONTRASEÑAS
@@ -134,38 +111,28 @@ USE_I18N = True
 USE_TZ = True
 
 # ==============================
-#  ARCHIVOS ESTÁTICOS Y MEDIA
+#  ARCHIVOS ESTÁTICOS Y MEDIA (CORREGIDO)
 # ==============================
 
-#  Rutas de archivos estáticos globales
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"  #  Carpeta donde collectstatic los reúne
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-#  WhiteNoise: compresión y cache para archivos estáticos
-# Temporal para probar
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-
-#  Archivos subidos por usuarios
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
-
-
 # ==============================
-#  SEGURIDAD EXTRA (solo se activan en producción)
+#  SEGURIDAD EXTRA
 # ==============================
 
 if not DEBUG:
-    #  Asegura que Django sepa si viene por HTTPS (Railway usa proxy)
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-    #  Cookies seguras (solo HTTPS)
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
 
 # ==============================
-#  LOGGING BÁSICO PARA RAILWAY
+#  LOGGING
 # ==============================
 
 LOGGING = {
@@ -175,12 +142,4 @@ LOGGING = {
     'root': {'handlers': ['console'], 'level': 'WARNING'},
 }
 
-# ==============================
-#  ID por defecto
-# ==============================
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-
