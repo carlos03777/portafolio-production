@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
     #  Tus apps locales
     'web',
+    'storages'
 ]
 
 # ==============================
@@ -46,10 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
-    #  Middleware de WhiteNoise para servir archivos estáticos en producción
     'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
