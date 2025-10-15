@@ -94,9 +94,26 @@ DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL', f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
         conn_max_age=600,
+        conn_health_checks=True,
         ssl_require=not os.getenv('DEBUG', '').lower() == 'true'
     )
 }
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-3cca.up.railway.app',
+    'https://*.railway.app'
+]
+
+
+
+ALLOWED_HOSTS = [
+    'web-production-3cca.up.railway.app',
+    '*.railway.app',
+    'localhost',
+    '127.0.0.1'
+]
+
 
 # ==============================
 #  VALIDACIÓN DE CONTRASEÑAS
