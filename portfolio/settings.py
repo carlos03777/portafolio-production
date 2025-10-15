@@ -151,6 +151,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
+
+
 # ==============================
 #  SEGURIDAD EXTRA (solo se activan en producción)
 # ==============================
