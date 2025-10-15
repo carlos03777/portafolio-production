@@ -145,7 +145,6 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"  #  Carpeta donde collectstatic los reúne
 
 #  WhiteNoise: compresión y cache para archivos estáticos
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 #  Archivos subidos por usuarios
 MEDIA_URL = '/media/'
