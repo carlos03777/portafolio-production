@@ -162,3 +162,13 @@ LOGGING = {
 # ==============================
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+import os
+import dj_database_url
+
+print("=== DEBUG DATABASE CONFIG ===")
+print("DATABASE_URL =", os.getenv("DATABASE_URL"))
+print("DJANGO DATABASES =", dj_database_url.config(default="sqlite:///db.sqlite3"))
+print("==============================")
