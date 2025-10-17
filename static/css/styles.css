@@ -1653,6 +1653,30 @@ body.dark .hero-word_next {
   .theme-compare[data-theme="dark"] .contact-footer {
     color: rgba(255, 255, 255, 0.6);
   }
+  .theme-compare[data-theme="light"] .contact-info {
+  color: #1a1a1a;
+}
+
+.theme-compare[data-theme="light"] .contact-info i {
+  color: #e55050; /* tu accent */
+}
+
+/* 🌙 Modo Oscuro */
+.theme-compare[data-theme="dark"] .contact-info {
+  color: #f1f1f1;
+}
+
+.theme-compare[data-theme="dark"] .contact-info i {
+  color: #ffffff;
+}
+
+.theme-compare[data-theme="dark"] .contact-info p {
+  color: #ffffff;
+}
+
+.theme-compare[data-theme="light"] .contact-info i {
+  color: #1a1a1a; /* tu accent */
+}
 
   /* Responsive */
 
@@ -1670,23 +1694,7 @@ body.dark .hero-word_next {
 
 
   
-
-.theme-compare[data-theme="light"] .contact-info {
-  color: #1a1a1a;
-}
-
-.theme-compare[data-theme="light"] .contact-info i {
-  color: #e55050; /* tu accent */
-}
-
-/* 🌙 Modo Oscuro */
-.theme-compare[data-theme="dark"] .contact-info {
-  color: #f1f1f1;
-}
-
-.theme-compare[data-theme="dark"] .contact-info i {
-  color: #ffffff;
-}
+  
 
 
 /* ----------- BOTÓN WHATSAPP ----------- */
