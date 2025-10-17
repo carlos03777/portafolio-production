@@ -143,3 +143,29 @@ LOGGING = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# ==============================
+#  AWS S3
+# ==============================
+
+INSTALLED_APPS += ["storages"]
+
+# Backend de almacenamiento para archivos subidos
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+# Credenciales y bucket
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "us-east-2")
+
+# Configuración adicional
+AWS_QUERYSTRING_AUTH = False   # evita URLs con tokens
+AWS_S3_FILE_OVERWRITE = False  # no sobrescribir archivos con el mismo nombre
+AWS_DEFAULT_ACL = None         # usa los permisos del bucket
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+
+# URL base para los archivos media
+MEDIA_URL = f"https://{mi-portafolio-2026}.s3.amazonaws.com/media/"
+MEDIA_ROOT = "media/"
