@@ -1108,6 +1108,7 @@ body.dark .hero-word_next {
   position: relative;
   z-index: 2;
   max-width: 1200px;
+  justify-content: center;
   width: 100%;
   min-height: 100vh;
   
@@ -1115,6 +1116,7 @@ body.dark .hero-word_next {
 
 .container-title {
   text-align: center;
+  margin-top: 25px;
 }
 
 .skill-title {
