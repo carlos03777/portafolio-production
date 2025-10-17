@@ -595,9 +595,7 @@ body.dark .hero-word_next {
   height: 420px;
   border-radius: 20px;
   overflow: hidden;
-  cursor: pointer;
-  border: 1px solid var(--box-shadow);
- 
+  cursor: pointer; 
   perspective: 1000px;
 }
 
@@ -607,6 +605,8 @@ body.dark .hero-word_next {
   height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.8s ease;
+    border: 1px solid var(--box-shadow);
+
 }
 
 .card3d[data-active="true"] .card3d-inner {
@@ -1094,7 +1094,6 @@ body.dark .hero-word_next {
 .skills {
   position: relative;
   width: 100%;
-  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
