@@ -164,8 +164,8 @@ AWS_S3_FILE_OVERWRITE = False  # no sobrescribir archivos con el mismo nombre
 AWS_DEFAULT_ACL = None         # usa los permisos del bucket
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 
-# URL base para los archivos media
-MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/"
+# URL base para los archivos medias
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 MEDIA_ROOT = "media/"
 
 import sys
