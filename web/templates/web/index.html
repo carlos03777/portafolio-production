@@ -145,19 +145,19 @@
       </div>
     </div>
 
- <div class="about-content">
+    <div class="about-content">
 
-  {% if profile %}
-    <h2 class="about-title">{{ profile.name }}</h3>
-    <p>{{ profile.description }}</p>
-  {% else %}
-    <p>No hay información disponible por el momento.</p>
-  {% endif %}
+      {% if profile %}
+      <h2 class="about-title">{{ profile.name }}</h3>
+        <p>{{ profile.description }}</p>
+        {% else %}
+        <p>No hay información disponible por el momento.</p>
+        {% endif %}
 
-  <div class="about-buttons">
-    <a href="{% url 'web:about' %}" class="btn about-btn">Ver más sobre mí</a>
-  </div>
-</div>
+        <div class="about-buttons">
+          <a href="{% url 'web:about' %}" class="btn about-btn">Ver más sobre mí</a>
+        </div>
+    </div>
   </div>
 </section>
 
@@ -185,12 +185,12 @@
       <li><img src="" alt="Git"></li>
       <li><img src="" alt="Figma"></li>
     </ul>
-      <ul>
+    <ul>
       <li><img src="" alt="HTML"></li>
       <li><img src="" alt="CSS"></li>
       <li><img src="" alt="JavaScript"></li>
     </ul>
-      <ul>
+    <ul>
       <li><img src="" alt="Photoshop"></li>
       <li><img src="" alt="Illustrator"></li>
     </ul>
@@ -293,10 +293,10 @@
       <!-- Izquierda -->
       <div class="contact-left">
         <form class="contact-form" action="#" method="post" novalidate>
-          <input type="text" name="name" placeholder="Name" required />
+          <input type="text" name="name" placeholder="Nombre" required />
           <input type="email" name="email" placeholder="Email" required />
-          <textarea name="message" rows="6" placeholder="Message" required></textarea>
-          <button type="submit">Send</button>
+          <textarea name="message" rows="6" placeholder="Mensaje" required></textarea>
+          <button type="submit">Enviar</button>
         </form>
       </div>
 
@@ -304,24 +304,42 @@
       <div class="contact-right">
         <div class="contact-info">
           <i class="fa-solid fa-location-dot"></i>
-          <p>City, State</p>
+          <p class="text">Bogota, Colombia</p>
         </div>
         <div class="contact-info">
           <i class="fa-solid fa-phone"></i>
-          <p>(212) 555-2368</p>
+          <p>(+57)320 323 1065</p>
         </div>
         <div class="contact-info">
           <i class="fa-solid fa-envelope"></i>
-          <p>hitmeup@gmail.com</p>
+          <p>carlosforero2025777@gmail.com</p>
         </div>
 
         <div class="contact-divider"></div>
 
         <div class="contact-icons">
-          <a href="#"><i class="fa-brands fa-github"></i></a>
-          <a href="#"><i class="fa-brands fa-dribbble"></i></a>
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="{{ profile.github|default:'#' }}" target="_blank"
+            class="{% if not profile.github %}disabled{% endif %}">
+            <i class="fa-brands fa-github"></i>
+          </a>
+
+          <a href="{{ profile.linkedin|default:'#' }}" target="_blank"
+            class="{% if not profile.linkedin %}disabled{% endif %}">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+
+          <a href="{{ profile.behance|default:'#' }}" target="_blank"
+            class="{% if not profile.behance %}disabled{% endif %}">
+            <i class="fa-brands fa-behance"></i>
+          </a>
+
+          <a href="{{ profile.instagram|default:'#' }}" target="_blank"
+            class="{% if not profile.instagram %}disabled{% endif %}">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+
+       
+     
         </div>
 
         <div class="contact-divider"></div>
