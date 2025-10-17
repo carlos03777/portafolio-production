@@ -202,7 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ============================
    ABOUT: tarjeta holográfica
 ============================ */
-
 document.addEventListener("DOMContentLoaded", () => {
   const card3d = document.querySelector("#about .card3d");
   if (!card3d) return; // seguridad, si no existe About no corre
@@ -216,27 +215,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let isFlipped = false;
   let bounds = card3d.getBoundingClientRect();
 
-  // Variables para suavizado
-  let targetRotateX = 0;
-  let targetRotateY = 0;
-  let currentRotateX = 0;
-  let currentRotateY = 0;
-  let animationFrame;
-
-  function lerp(a, b, n) {
-    return a + (b - a) * n;
-  }
-
   function updateMinimap(x, y) {
     spans[0].textContent = `x: ${x}`;
     spans[1].textContent = `y: ${y}`;
-  }
-
-  function animate() {
-    currentRotateX = lerp(currentRotateX, targetRotateX, 0.08);
-    currentRotateY = lerp(currentRotateY, targetRotateY, 0.08);
-    card3d.style.transform = `rotateY(${currentRotateY}deg) rotateX(${-currentRotateX}deg)`;
-    animationFrame = requestAnimationFrame(animate);
   }
 
   function handleMove(e) {
@@ -247,14 +228,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const centerX = bounds.width / 2;
     const centerY = bounds.height / 2;
 
-    // Ángulo reducido para que se sienta más suave
-    targetRotateX = ((y - centerY) / centerY) * 10;
-    targetRotateY = ((x - centerX) / centerX) * 10;
+    const rotateX = ((y - centerY) / centerY) * 15;
+    const rotateY = ((x - centerX) / centerX) * 15;
 
-    updateMinimap(Math.round(targetRotateX), Math.round(targetRotateY));
+    card3d.style.transform = `rotateY(${rotateY}deg) rotateX(${-rotateX}deg)`;
+    updateMinimap(Math.round(rotateX), Math.round(rotateY));
 
-    // Glare con transición más suave
-    glare.style.transition = "background 0.15s ease-out";
     glare.style.background = `
       radial-gradient(circle at ${x}px ${y}px,
       rgba(255,255,255,0.4), transparent 60%)`;
@@ -267,8 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const dy = clientY - logoY;
       const hue = ((Math.atan2(dy, dx) + Math.PI) / (2 * Math.PI)) * 360;
       const distance = Math.sqrt(dx * dx + dy * dy);
-      const intensity = Math.max(0.6, 1.1 - distance / 250);
-      const rotation = (Date.now() / 12) % 360;
+      const intensity = Math.max(0.6, 1.2 - distance / 250);
+      const rotation = (Date.now() / 10) % 360;
 
       logo.style.setProperty("--hue", `${hue}deg`);
       logo.style.setProperty("--angle", `${rotation}deg`);
@@ -277,30 +256,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const icon = logo.querySelector(".logo-icon");
       if (icon) {
-        icon.style.filter = `hue-rotate(${hue}deg) brightness(${1.4 + intensity}) saturate(2)`;
+        icon.style.filter = `hue-rotate(${hue}deg) brightness(${1.6 + intensity}) saturate(2)`;
       }
     });
   }
 
   function handleLeave() {
-    targetRotateX = 0;
-    targetRotateY = 0;
-
-    // Regreso con una transición sutil
-    card3d.style.transition = "transform 0.6s ease";
     card3d.style.transform = "rotateY(0deg) rotateX(0deg)";
-
-    setTimeout(() => {
-      card3d.style.transition = "";
-    }, 600);
-
-    glare.style.transition = "background 0.4s ease-out";
     glare.style.background = `radial-gradient(circle, rgba(255,255,255,0.2), transparent 60%)`;
 
     logos.forEach(logo => {
       logo.style.setProperty("--hue", "0deg");
       logo.style.setProperty("--angle", "0deg");
-      logo.style.opacity = 0.25;
+      logo.style.opacity = 0.15;
       logo.classList.remove("prism");
 
       const icon = logo.querySelector(".logo-icon");
@@ -321,10 +289,8 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", () => {
     bounds = card3d.getBoundingClientRect();
   });
-
-  // Inicia la animación continua
-  animate();
 });
+
 
 
 /* ============================
