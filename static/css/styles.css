@@ -929,6 +929,7 @@ body.dark .hero-word_next {
   position: relative;
   padding: 4rem 0;
   background: transparent;
+  min-height: 600px;
 }
 
 /* Partículas */
