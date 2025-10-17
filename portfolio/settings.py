@@ -119,8 +119,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+
 
 # ==============================
 #  SEGURIDAD EXTRA
@@ -149,7 +148,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #  AWS S3
 # ==============================
 
-INSTALLED_APPS += ["storages"]
 
 # Backend de almacenamiento para archivos subidos
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
