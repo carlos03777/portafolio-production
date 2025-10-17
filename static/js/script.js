@@ -202,9 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ============================
    ABOUT: tarjeta holográfica
 ============================ */
-/* ============================
-   ABOUT: tarjeta holográfica (versión suave y optimizada)
-============================ */
+
 document.addEventListener("DOMContentLoaded", () => {
   const card3d = document.querySelector("#about .card3d");
   if (!card3d) return; // seguridad, si no existe About no corre
@@ -237,24 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function animate() {
     currentRotateX = lerp(currentRotateX, targetRotateX, 0.08);
     currentRotateY = lerp(currentRotateY, targetRotateY, 0.08);
-
-    // Si los valores son casi cero, redondeamos para evitar floats infinitos
-    if (Math.abs(currentRotateX) < 0.01) currentRotateX = 0;
-    if (Math.abs(currentRotateY) < 0.01) currentRotateY = 0;
-
-    card3d.style.transform = `rotateY(${currentRotateY.toFixed(2)}deg) rotateX(${-currentRotateX.toFixed(2)}deg)`;
-
-    // Solo sigue animando si aún hay movimiento visible
-    if (
-      Math.abs(targetRotateX - currentRotateX) > 0.01 ||
-      Math.abs(targetRotateY - currentRotateY) > 0.01
-    ) {
-      animationFrame = requestAnimationFrame(animate);
-    }
-  }
-
-  function startAnimation() {
-    cancelAnimationFrame(animationFrame);
+    card3d.style.transform = `rotateY(${currentRotateY}deg) rotateX(${-currentRotateX}deg)`;
     animationFrame = requestAnimationFrame(animate);
   }
 
@@ -271,9 +252,6 @@ document.addEventListener("DOMContentLoaded", () => {
     targetRotateY = ((x - centerX) / centerX) * 10;
 
     updateMinimap(Math.round(targetRotateX), Math.round(targetRotateY));
-
-    // Inicia animación si hay movimiento
-    startAnimation();
 
     // Glare con transición más suave
     glare.style.transition = "background 0.15s ease-out";
@@ -343,6 +321,9 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", () => {
     bounds = card3d.getBoundingClientRect();
   });
+
+  // Inicia la animación continua
+  animate();
 });
 
 
