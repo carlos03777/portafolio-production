@@ -184,6 +184,4 @@ print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}")
 print(f"MEDIA_URL: {MEDIA_URL}")
 print(f"AWS_ACCESS_KEY_ID: {' SET' if AWS_ACCESS_KEY_ID else ' MISSING'}")
 
-from django.core.files.storage import default_storage
-print("STORAGE CLASS EN SETTINGS:", default_storage.__class__)
 

@@ -136,7 +136,6 @@ p, span, li, a, button {
   font-family: 'Poppins', sans-serif;
   color: var(--text);
   font-weight: 400;
-  font-size: 0.6rem;
   margin: 0.2em 0;
 }
 
@@ -189,7 +188,7 @@ body::after {
   padding: 10px;
   border: 1px solid currentColor;
   border-radius: 50%;
-  background: none;
+  background: var(--text);
   color: var(--text);
   font-size: 1.2rem;
   cursor: pointer;
@@ -1103,7 +1102,6 @@ body.dark .hero-word_next {
   max-width: 1200px;
   justify-content: center;
   width: 100%;
-  min-height: 100vh;
   
 }
 
