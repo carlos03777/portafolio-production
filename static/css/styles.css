@@ -407,7 +407,7 @@ body.dark .hero__static {
   align-items: center;
   width: fit-content;
   max-width: 100%;
-  padding: 0.1rem 0.1rem;
+  padding: 0;
   background-color: var(--accent);
   border-radius: 4px;
 }
@@ -432,7 +432,7 @@ body.dark .hero-word_next {
 
 .hero-word_current {
   color: var(--bg-light);
-  font-size: 3.3rem;
+  font-size: 3rem;
   opacity: 1;
 }
 
