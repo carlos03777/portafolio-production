@@ -1124,10 +1124,9 @@ body.dark .hero-word_next {
 }
 
 .skills-content {
-  display: flex;
   gap: 2rem;
   justify-content: center;
-  align-items: flex-start;
+  
 }
 
 .skills-bg {
@@ -1238,7 +1237,6 @@ body.dark .hero-word_next {
 
 .skill span {
   font-weight: 500;
-  min-width: 80px;
 }
 
 .skill-bar {
