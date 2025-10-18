@@ -225,6 +225,8 @@ body::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: 1rem;
+  margin-right:1rem;
 }
 
 /* Estado con scroll */
