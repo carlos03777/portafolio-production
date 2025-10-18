@@ -92,11 +92,18 @@ function initDrawRandomUnderline() {
         : playOut();
     });
 
-    container.addEventListener("touchstart", ev => {
-      ev.preventDefault();
-      container.dispatchEvent(new Event("mouseenter"));
-      setTimeout(() => container.dispatchEvent(new Event("mouseleave")), 900);
-    }, { passive: false });
+    // ✅ Corregido: permitir que los links funcionen en móviles
+    container.addEventListener(
+      "touchstart",
+      ev => {
+        if (container.tagName.toLowerCase() !== "a") {
+          ev.preventDefault();
+        }
+        container.dispatchEvent(new Event("mouseenter"));
+        setTimeout(() => container.dispatchEvent(new Event("mouseleave")), 900);
+      },
+      { passive: true }
+    );
   });
 }
 
@@ -104,9 +111,7 @@ document.readyState === "loading"
   ? document.addEventListener("DOMContentLoaded", initDrawRandomUnderline)
   : initDrawRandomUnderline();
 
-
-
-  const navbar = document.querySelector(".navbar");
+const navbar = document.querySelector(".navbar");
 
 window.addEventListener("scroll", () => {
   if (window.scrollY > 50) {
@@ -116,9 +121,6 @@ window.addEventListener("scroll", () => {
   }
 });
 
-
-
-// togle
 // ======================
 // DARK MODE TOGGLE
 // ======================
@@ -126,16 +128,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("theme-toggle");
   const body = document.body;
 
-  // 1. Cargar preferencia previa si existe
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme === "dark") {
     body.classList.add("dark");
-    toggle.textContent = "☀️"; // sol si está oscuro
+    toggle.textContent = "☀️";
   } else {
-    toggle.textContent = "🌙"; // luna si está claro
+    toggle.textContent = "🌙";
   }
 
-  // 2. Click para alternar
   toggle.addEventListener("click", () => {
     body.classList.toggle("dark");
     const isDark = body.classList.contains("dark");
@@ -144,10 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("theme", isDark ? "dark" : "light");
   });
 });
-
-
-
-
 
 /* ============================
    2. Menú hamburguesa
@@ -160,6 +156,15 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleMenu.addEventListener("click", () => {
       links.classList.toggle("active");
       toggleMenu.classList.toggle("open");
+    });
+
+    // ✅ Nuevo: cerrar menú al hacer click en un link
+    const linkItems = links.querySelectorAll("a");
+    linkItems.forEach(link => {
+      link.addEventListener("click", () => {
+        links.classList.remove("active");
+        toggleMenu.classList.remove("open");
+      });
     });
   }
 });

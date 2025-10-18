@@ -483,6 +483,7 @@ body.dark .hero-word_next {
 
 .about-content {
   max-width: 600px;
+  justify-self: center;
 }
 
 /* ---------- SECTION TITLE ---------- */
