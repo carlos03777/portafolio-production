@@ -165,8 +165,9 @@ AWS_DEFAULT_ACL = None         # usa los permisos del bucket
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 
 # URL base para los archivos medias
-MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
 MEDIA_ROOT = "media/"
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
 
 import sys
 print("DEFAULT_FILE_STORAGE:", DEFAULT_FILE_STORAGE, file=sys.stderr)
