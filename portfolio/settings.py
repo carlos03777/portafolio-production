@@ -144,33 +144,28 @@ LOGGING = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+
+
 # ==============================
 #  AWS S3
 # ==============================
 
-
-# Backend de almacenamiento para archivos subidos
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-# Credenciales y bucket
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "us-east-2")
 
-# Configuración adicional
-AWS_QUERYSTRING_AUTH = False   # evita URLs con tokens
-AWS_S3_FILE_OVERWRITE = False  # no sobrescribir archivos con el mismo nombre
-AWS_DEFAULT_ACL = None         # usa los permisos del bucket
+AWS_DEFAULT_ACL = "public-read"
+AWS_S3_FILE_OVERWRITE = False
+AWS_QUERYSTRING_AUTH = False
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 
-# URL base para los archivos medias
-MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/"
-MEDIA_ROOT = "media/"
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/"
+MEDIA_ROOT = "media/"
 
-import sys
-print("DEFAULT_FILE_STORAGE:", DEFAULT_FILE_STORAGE, file=sys.stderr)
 
 
 
