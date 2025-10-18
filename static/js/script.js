@@ -333,7 +333,67 @@ document.addEventListener('DOMContentLoaded', () => {
   // Estilos dinámicos para animación y barras
   const style = document.createElement('style')
   style.textContent = `
-    
+    .skills-bg ul {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .skills-bg .skill-slot {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+    }
+    .skills-bg .skill-logo {
+      display: grid;
+      place-items: center;
+      width: ${config.imgSize};
+      height: ${config.imgSize};
+      opacity: 0;
+      animation: skills-appear ${config.duration}s infinite;
+    }
+    .skills-bg .skill-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 12px #fff);
+    }
+    @keyframes skills-appear {
+      0% {
+        filter: blur(${config.blur}px);
+        opacity: 0;
+        transform: translate(-${config.x}px, ${config.y}px) scale(0.9);
+      }
+      40%, 60% {
+        filter: blur(0);
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        filter: blur(${config.blur}px);
+        opacity: 0;
+        transform: translate(${config.x}px, -${config.y}px) scale(0.9);
+      }
+    }
+
+    .skill-bar {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      height: 10px;
+      margin: 0.3rem 0;
+    }
+    .skill-fill {
+      background: var(--accent, #e55050);
+      height: 100%;
+      transition: width 0.5s ease-in-out;
+    }
+    .skill-percent {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
   `
   document.head.appendChild(style)
 
