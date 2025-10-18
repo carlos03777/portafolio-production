@@ -1441,7 +1441,7 @@ body.dark .hero-word_next {
   /* --- Responsive --- */
   @media (max-width: 880px) {
     .theme-compare .contact-inner {
-      width: 95%;        /* evita que ocupe el 100% */
+      width: 100%;        /* evita que ocupe el 100% */
       max-width: 600px;  /* límite para que no sea gigante */
       margin: 0 auto;    /* centrado */
       padding: 2rem 1rem;
