@@ -1209,7 +1209,7 @@ body.dark .hero-word_next {
 .skills-box {
   flex: 1;
   max-width: 650px;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 1rem;
   background: var(--skill-card-bg);
   backdrop-filter: blur(6px);
