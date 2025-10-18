@@ -513,11 +513,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderSkills("frontend")
 })
+
 /* ============================
-   4. Projects: glare + partículas optimizadas
+   4. Projects: efecto glare y particles
 ============================ */
 
-// ---- 1. Efecto glare en tarjetas ----
 document.querySelectorAll(".project").forEach(card => {
   const glare = card.querySelector(".project__glare");
 
@@ -537,28 +537,26 @@ document.querySelectorAll(".project").forEach(card => {
 });
 
 
-// ---- 2. Obtener color desde CSS ----
+
+
 function getCSSVar(name) {
   return getComputedStyle(document.body).getPropertyValue(name).trim();
 }
 
-
-// ---- 3. Cargar partículas (con ajustes para móvil) ----
 function loadParticles() {
   const color = getCSSVar('--particles-color');
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   tsParticles.load("tsparticles", {
     fullScreen: { enable: false },
     background: { color: "transparent" },
     particles: {
-      number: { value: isMobile ? 25 : 60 }, // menos partículas en móvil
+      number: { value: 60 },
       color: { value: color },
       shape: { type: "circle" },
-      opacity: { value: isMobile ? 0.35 : 0.5 },
-      size: { value: isMobile ? 1.2 : 2 },
+      opacity: { value: 0.5 },
+      size: { value: 2 },
       links: {
-        enable: !isMobile, // desactiva líneas en móvil
+        enable: true,
         distance: 120,
         color: color,
         opacity: 0.3,
@@ -566,14 +564,14 @@ function loadParticles() {
       },
       move: {
         enable: true,
-        speed: isMobile ? 0.3 : 0.6, // movimiento más lento en móvil
+        speed: 0.6,
         direction: "none",
         outModes: { default: "bounce" }
       }
     },
     interactivity: {
       events: {
-        onHover: { enable: !isMobile, mode: "grab" }, // sin interacción hover en móvil
+        onHover: { enable: true, mode: "grab" },
         resize: true
       },
       modes: {
@@ -582,20 +580,16 @@ function loadParticles() {
           links: { opacity: 0.5 }
         }
       }
-    },
-    detectRetina: true
+    }
   });
 }
 
-
-// ---- 4. Inicializar partículas ----
+// 3. Inicializa partículas
 loadParticles();
 
-
-// ---- 5. Detectar cambios de modo claro/oscuro ----
+// 4. Observa cambios en el modo (claro/oscuro)
 const observer = new MutationObserver(() => {
-  const existing = tsParticles.domItem(0);
-  if (existing) existing.destroy();
+  tsParticles.domItem(0).destroy();
   loadParticles();
 });
 
