@@ -514,9 +514,13 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSkills("frontend")
 })
 
+
 /* ============================
    4. Projects: efecto glare y particles
 ============================ */
+
+
+
 
 document.querySelectorAll(".project").forEach(card => {
   const glare = card.querySelector(".project__glare");
