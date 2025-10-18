@@ -188,8 +188,6 @@ body::after {
   padding: 10px;
   border: 1px solid currentColor;
   border-radius: 50%;
-  background: var(--text);
-  color: var(--text);
   font-size: 1.2rem;
   cursor: pointer;
   transition: 0.3s;
