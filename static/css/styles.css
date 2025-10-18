@@ -188,6 +188,8 @@ body::after {
   padding: 10px;
   border: 1px solid currentColor;
   border-radius: 50%;
+  background: var(--text);
+  color: var(--text);
   font-size: 1.2rem;
   cursor: pointer;
   transition: 0.3s;
@@ -196,7 +198,7 @@ body::after {
 
 .toggle:hover {
   background: var(--text);
-  color: var(--text);
+  color: var(--bg);
 }
 
 .toggle:active {
@@ -1100,6 +1102,7 @@ body.dark .hero-word_next {
   max-width: 1200px;
   justify-content: center;
   width: 100%;
+  min-height: 100vh;
   
 }
 
