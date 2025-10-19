@@ -398,49 +398,58 @@ document.addEventListener('DOMContentLoaded', () => {
   `
   document.head.appendChild(style)
 
-  // Generar rejilla de logos animados
-  const generateLogos = () => {
-    layers.forEach(ul => ul.innerHTML = "")
+// Generar rejilla de logos animados
+const generateLogos = () => {
+  layers.forEach(ul => ul.innerHTML = "");
 
-    const { width: w, height: h } = section.getBoundingClientRect()
+  const { width: w, height: h } = section.getBoundingClientRect();
 
-    // Ajustar el spacing dinámicamente para asegurar al menos 4 filas
-    let spacing = config.spacing
-    const rows = Math.floor(h / spacing)
-    if (rows < config.minRows) spacing = h / config.minRows
+  // 🔹 Ajuste dinámico de spacing según ancho de pantalla
+  let spacing = config.spacing;
 
-    const cols = Math.floor(w / spacing)
-    const offsetX = (w - cols * spacing) / 2
-    const offsetY = (h - Math.floor(h / spacing) * spacing) / 2
-
-    let idx = 0
-    for (let r = 0; r < Math.floor(h / spacing); r++) {
-      for (let c = 0; c < cols; c++) {
-        const ul = layers[(r + c) % layers.length]
-
-        const slot = document.createElement('div')
-        slot.className = "skill-slot"
-        slot.style.left = `${offsetX + c * spacing + spacing / 2}px`
-        slot.style.top = `${offsetY + r * spacing + spacing / 2}px`
-
-        const logoDiv = document.createElement('div')
-        logoDiv.className = "skill-logo"
-        logoDiv.style.animationDelay = `${-(idx % config.itemsVisible) * (config.duration / config.itemsVisible)}s`
-
-        const img = document.createElement('img')
-        img.src = logos[(idx + r + c) % logos.length]
-        logoDiv.appendChild(img)
-
-        slot.appendChild(logoDiv)
-        ul.appendChild(slot)
-
-        idx++
-      }
-    }
+  if (w < 500) {
+    spacing = config.spacing * 0.6; // más juntas en móvil (≈2 columnas)
+  } else if (w < 900) {
+    spacing = config.spacing * 0.8; // tabletas: un poco más separadas
   }
 
-  window.addEventListener('resize', generateLogos)
-  generateLogos()
+  // Asegurar al menos X filas
+  const rows = Math.floor(h / spacing);
+  if (rows < config.minRows) spacing = h / config.minRows;
+
+  const cols = Math.floor(w / spacing);
+  const offsetX = (w - cols * spacing) / 2;
+  const offsetY = (h - Math.floor(h / spacing) * spacing) / 2;
+
+  let idx = 0;
+  for (let r = 0; r < Math.floor(h / spacing); r++) {
+    for (let c = 0; c < cols; c++) {
+      const ul = layers[(r + c) % layers.length];
+
+      const slot = document.createElement("div");
+      slot.className = "skill-slot";
+      slot.style.left = `${offsetX + c * spacing + spacing / 2}px`;
+      slot.style.top = `${offsetY + r * spacing + spacing / 2}px`;
+
+      const logoDiv = document.createElement("div");
+      logoDiv.className = "skill-logo";
+      logoDiv.style.animationDelay = `${-(idx % config.itemsVisible) * (config.duration / config.itemsVisible)}s`;
+
+      const img = document.createElement("img");
+      img.src = logos[(idx + r + c) % logos.length];
+      logoDiv.appendChild(img);
+
+      slot.appendChild(logoDiv);
+      ul.appendChild(slot);
+
+      idx++;
+    }
+  }
+};
+
+window.addEventListener("resize", generateLogos);
+generateLogos();
+
 
   /* ============================
      Ventana de categorías
