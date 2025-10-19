@@ -540,27 +540,25 @@ document.querySelectorAll(".project").forEach(card => {
   });
 });
 
-
-
-
 function getCSSVar(name) {
   return getComputedStyle(document.body).getPropertyValue(name).trim();
 }
 
 function loadParticles() {
   const color = getCSSVar('--particles-color');
+  const isMobile = window.innerWidth < 768; // 👈 Detecta móvil
 
   tsParticles.load("tsparticles", {
     fullScreen: { enable: false },
     background: { color: "transparent" },
     particles: {
-      number: { value: 60 },
+      number: { value: isMobile ? 20 : 60 }, // 👈 Menos partículas
       color: { value: color },
       shape: { type: "circle" },
-      opacity: { value: 0.5 },
-      size: { value: 2 },
+      opacity: { value: isMobile ? 0.3 : 0.5 },
+      size: { value: isMobile ? 1.5 : 2 },
       links: {
-        enable: true,
+        enable: !isMobile, // 👈 Sin líneas en móviles
         distance: 120,
         color: color,
         opacity: 0.3,
@@ -568,14 +566,14 @@ function loadParticles() {
       },
       move: {
         enable: true,
-        speed: 0.6,
+        speed: isMobile ? 0.4 : 0.6, // 👈 Más lento
         direction: "none",
         outModes: { default: "bounce" }
       }
     },
     interactivity: {
       events: {
-        onHover: { enable: true, mode: "grab" },
+        onHover: { enable: !isMobile, mode: "grab" }, // 👈 Sin interacción en móvil
         resize: true
       },
       modes: {
@@ -588,10 +586,8 @@ function loadParticles() {
   });
 }
 
-// 3. Inicializa partículas
 loadParticles();
 
-// 4. Observa cambios en el modo (claro/oscuro)
 const observer = new MutationObserver(() => {
   tsParticles.domItem(0).destroy();
   loadParticles();
@@ -601,6 +597,7 @@ observer.observe(document.body, {
   attributes: true,
   attributeFilter: ['class']
 });
+
 
 
 
