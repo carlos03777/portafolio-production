@@ -1092,11 +1092,13 @@ body.dark .hero-word_next {
 .skills {
   position: relative;
   width: 100%;
+  min-height: 120vh; /* 🔹 más alto: da más aire al fondo */
   display: flex;
   justify-content: center;
-  align-items: center;
-
+  align-items: center; /* 🔹 centra verticalmente las cajas */
+  padding: 4rem 0;     /* 🔹 agrega espacio extra arriba y abajo */
 }
+
 
 .container {
   position: relative;
@@ -1267,14 +1269,24 @@ body.dark .hero-word_next {
    RESPONSIVE: ocultar barras de progreso
 ============================ */
 
+
+
 /* Responsive: más aire en móviles */
 @media (max-width: 768px) {
+  .skills {
+    min-height: 100vh; /* un poco más compacto en móvil */
+    padding: 3rem 0;
+  }
 
   .skills-content {
     align-items: center;
     gap: 1.8rem;
   }
+
 }
+
+
+
 /* ============================
    THEME COMPARADOR
 ============================ */
