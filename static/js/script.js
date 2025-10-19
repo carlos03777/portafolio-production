@@ -459,37 +459,43 @@ generateLogos();
     frontend: {
       title: "Frontend",
       items: [
-        { name: "HTML", percent: 90 },
-        { name: "CSS", percent: 85 },
-        { name: "JavaScript", percent: 70 },
-        { name: "React", percent: 65 },
+        { name: "HTML", percent: 80 },
+        { name: "CSS", percent: 70 },
+        { name: "JavaScript", percent: 60 },
+        { name: "Bootstrap", percent: 70 },
       ],
     },
     backend: {
       title: "Backend",
       items: [
-        { name: "Node.js", percent: 75 },
-        { name: "Express", percent: 70 },
-        { name: "MongoDB", percent: 60 },
+        { name: "Python", percent: 60 },
+        { name: "Django", percent: 70 },
+        { name: "PostgreSQL", percent: 60 },
         { name: "SQL", percent: 55 },
       ],
     },
     design: {
       title: "Diseño & Multimedia",
       items: [
-        { name: "Figma", percent: 80 },
-        { name: "Adobe Photoshop", percent: 70 },
-        { name: "Adobe Illustrator", percent: 65 },
-        { name: "Premiere Pro", percent: 60 },
+        { name: "Figma", percent: 70 },
+        { name: "Photoshop", percent: 70 },
+        { name: "Illustrator", percent: 65 },
+        { name: "Premiere Pro", percent: 70 },
+        { name: "Illustrator", percent: 70 },
+        { name: "Audition", percent: 70 },
+        { name: "InDesign", percent: 70 },
+        { name: "CANVA", percent: 90 },
+
       ],
     },
     tools: {
       title: "Herramientas",
       items: [
-        { name: "Git / GitHub", percent: 85 },
+        { name: "Git / GitHub", percent: 80 },
         { name: "VS Code", percent: 90 },
-        { name: "Docker", percent: 50 },
-        { name: "Postman", percent: 70 },
+        { name: "Linux", percent: 60 },
+        { name: "Notion", percent: 90 },
+
       ],
     },
   }
