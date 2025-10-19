@@ -293,6 +293,8 @@
       <!-- Izquierda -->
       <div class="contact-left">
         <form class="contact-form" action="{% url 'web:home' %}" method="post" novalidate>
+            {% csrf_token %}
+
           <input type="text" name="name" placeholder="Nombre" required />
           <input type="email" name="email" placeholder="Email" required />
           <textarea name="message" rows="6" placeholder="Mensaje" required></textarea>
