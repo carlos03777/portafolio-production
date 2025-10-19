@@ -530,8 +530,6 @@ generateLogos();
 ============================ */
 
 
-
-
 document.querySelectorAll(".project").forEach(card => {
   const glare = card.querySelector(".project__glare");
 
