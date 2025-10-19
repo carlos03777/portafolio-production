@@ -1,5 +1,5 @@
 # web/views.py
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from .models import Project, ContactMessage
 from django.contrib import messages
 
@@ -29,10 +29,10 @@ def home(request):
                 email=email,
                 message=message
             )
-            messages.success(request, "✅ ¡Tu mensaje ha sido enviado con éxito!")
+            messages.success(request, " ¡Tu mensaje ha sido enviado con éxito!")
             return redirect('web:home')  # ← importante: evita reenvíos y mantiene el mensaje
         else:
-            messages.error(request, "❌ Por favor completa todos los campos antes de enviar.")
+            messages.error(request, " Por favor completa todos los campos antes de enviar.")
             return redirect('web:home')
 
     # Datos del perfil y proyectos (solo para GET)
