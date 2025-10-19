@@ -301,34 +301,36 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ============================
    Skills: fondo animado + ventana de categorías
 ============================ */
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Configuración base optimizada
+  // Configuración base
   const config = {
-    spacing: 220,              // 👈 aumenta la separación → menos logos
-    itemsVisible: 14,          // 👈 menos elementos animados simultáneamente
-    duration: 6,
-    stagger: 0.12,
+    spacing: 200,              // separación base entre logos
+    itemsVisible: 14,          // cantidad visible en animación
+    duration: 6,               // duración animación (s)
+    stagger: 0.12,             // escalonamiento animación
     x: 40,
     y: 40,
     blur: 19,
-    imgSize: 'clamp(26px, 2.8vw, 52px)', // 👈 logos un pelín más pequeños
-    minRows: 3,                // 👈 menos filas mínimas
+    imgSize: 'clamp(28px, 3.2vw, 56px)',
+    minRows: 4,                // mínimo de filas visibles
   }
 
+  // Logos SVG para el fondo
   const logos = [
     "static/img/adobe.svg", "static/img/android.svg", "static/img/bootstrap.svg",
     "static/img/canva.svg", "static/img/css3.svg", "static/img/database.svg",
     "static/img/django.svg", "static/img/figma.svg", "static/img/github.svg",
-    "static/img/illustrator.svg", "static/img/js.svg",
-    "static/img/linkedin.svg", "static/img/linux.svg", "static/img/photoshop.svg",
-    "static/img/python.svg", "static/img/ubuntu.svg",
+    "static/img/illustrator.svg", "static/img/indesign.svg", "static/img/js.svg",
+    "static/img/linkedin.svg", "static/img/linux.svg", "static/img/notion.svg",
+    "static/img/photoshop.svg", "static/img/python.svg", "static/img/ubuntu.svg",
   ]
 
   const section = document.querySelector('.skills')
   const bg = section.querySelector('.skills-bg')
   const layers = Array.from(bg.querySelectorAll('ul'))
 
-  // Estilos dinámicos
+  // Estilos dinámicos para animación y barras
   const style = document.createElement('style')
   style.textContent = `
     .skills-bg ul {
@@ -375,6 +377,23 @@ document.addEventListener('DOMContentLoaded', () => {
         transform: translate(${config.x}px, -${config.y}px) scale(0.9);
       }
     }
+
+    .skill-bar {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      height: 10px;
+      margin: 0.3rem 0;
+    }
+    .skill-fill {
+      background: var(--accent, #e55050);
+      height: 100%;
+      transition: width 0.5s ease-in-out;
+    }
+    .skill-percent {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
   `
   document.head.appendChild(style)
 
@@ -384,6 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const { width: w, height: h } = section.getBoundingClientRect()
 
+    // Ajustar el spacing dinámicamente para asegurar al menos 4 filas
     let spacing = config.spacing
     const rows = Math.floor(h / spacing)
     if (rows < config.minRows) spacing = h / config.minRows
@@ -395,10 +415,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let idx = 0
     for (let r = 0; r < Math.floor(h / spacing); r++) {
       for (let c = 0; c < cols; c++) {
-        // 👇 limitar cantidad total para no saturar
-        if (idx > 100) break
-
         const ul = layers[(r + c) % layers.length]
+
         const slot = document.createElement('div')
         slot.className = "skill-slot"
         slot.style.left = `${offsetX + c * spacing + spacing / 2}px`
@@ -414,6 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         slot.appendChild(logoDiv)
         ul.appendChild(slot)
+
         idx++
       }
     }
@@ -421,8 +440,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('resize', generateLogos)
   generateLogos()
-})
-
 
   /* ============================
      Ventana de categorías
