@@ -18,7 +18,6 @@ def home(request):
     - Carga la información del perfil activo.
     - Procesa el formulario de contacto.
     """
-    # Procesar formulario de contacto
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
@@ -30,21 +29,20 @@ def home(request):
                 email=email,
                 message=message
             )
-            messages.success(request, "¡Tu mensaje ha sido enviado con éxito!")
+            messages.success(request, "✅ ¡Tu mensaje ha sido enviado con éxito!")
+            return redirect('web:home')  # ← importante: evita reenvíos y mantiene el mensaje
         else:
-            messages.error(request, "Por favor completa todos los campos antes de enviar.")
+            messages.error(request, "❌ Por favor completa todos los campos antes de enviar.")
+            return redirect('web:home')
 
-    # Obtener perfil activo
+    # Datos del perfil y proyectos (solo para GET)
     profile = Profile.objects.filter(is_active=True).first()
-
-    # Obtener proyectos publicados
     projects = Project.objects.filter(is_published=True).order_by("order", "-created_at")
 
     return render(request, "web/index.html", {
         "profile": profile,
         "projects": projects,
     })
-
 
 # =============================
 # PROJECT DETAIL
