@@ -305,16 +305,17 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener('DOMContentLoaded', () => {
   // Configuración base
   const config = {
-    spacing: 200,              // separación base entre logos
-    itemsVisible: 14,          // cantidad visible en animación
-    duration: 6,               // duración animación (s)
-    stagger: 0.12,             // escalonamiento animación
+    spacing: 280,      // antes 200 → menos logos en pantalla
+    itemsVisible: 7,   // menos elementos animándose
+    duration: 6,
+    stagger: 0.12,
     x: 40,
     y: 40,
     blur: 19,
     imgSize: 'clamp(28px, 3.2vw, 56px)',
-    minRows: 4,                // mínimo de filas visibles
+    minRows: 3,        // reduce filas mínimas
   }
+
 
   // Logos SVG para el fondo
   const logos = [
@@ -420,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const slot = document.createElement('div')
         slot.className = "skill-slot"
         slot.style.left = `${offsetX + c * spacing + spacing / 2}px`
-        slot.style.top  = `${offsetY + r * spacing + spacing / 2}px`
+        slot.style.top = `${offsetY + r * spacing + spacing / 2}px`
 
         const logoDiv = document.createElement('div')
         logoDiv.className = "skill-logo"
