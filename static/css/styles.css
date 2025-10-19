@@ -1273,14 +1273,11 @@ body.dark .hero-word_next {
 
 /* Responsive: más aire en móviles */
 @media (max-width: 768px) {
-  .skills {
-    min-height: 100vh; /* un poco más compacto en móvil */
-    padding: 3rem 0;
-  }
+  
 
   .skills-content {
     align-items: center;
-    gap: 1.8rem;
+    gap: 1rem;
   }
 
 }
