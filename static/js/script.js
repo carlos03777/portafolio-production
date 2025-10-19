@@ -564,7 +564,7 @@ function loadParticles() {
     fullScreen: { enable: false },
     background: { color: "transparent" },
     particles: {
-      number: { value: 60 },
+      number: { value: 30 },
       color: { value: color },
       shape: { type: "circle" },
       opacity: { value: 0.5 },
