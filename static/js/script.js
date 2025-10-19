@@ -301,20 +301,22 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ============================
    Skills: fondo animado + ventana de categorías
 ============================ */
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Configuración base
   const config = {
-    spacing: 180,
-    itemsVisible: 18,
-    duration: 6,
-    stagger: 0.12,
+    spacing: 180,              // separación base entre logos
+    itemsVisible: 18,          // cantidad visible en animación
+    duration: 6,               // duración animación (s)
+    stagger: 0.12,             // escalonamiento animación
     x: 40,
     y: 40,
     blur: 19,
     imgSize: 'clamp(28px, 3.2vw, 56px)',
-    minRows: 4,
-    maxNodes: 120, // 👈 Nuevo: límite de nodos totales
+    minRows: 4,                // mínimo de filas visibles
   }
 
+  // Logos SVG para el fondo
   const logos = [
     "static/img/adobe.svg", "static/img/android.svg", "static/img/bootstrap.svg",
     "static/img/canva.svg", "static/img/css3.svg", "static/img/database.svg",
@@ -322,130 +324,122 @@ document.addEventListener('DOMContentLoaded', () => {
     "static/img/illustrator.svg", "static/img/indesign.svg", "static/img/js.svg",
     "static/img/linkedin.svg", "static/img/linux.svg", "static/img/notion.svg",
     "static/img/photoshop.svg", "static/img/python.svg", "static/img/ubuntu.svg",
-  ];
+  ]
 
-  const section = document.querySelector('.skills');
-  const bg = section.querySelector('.skills-bg');
-  const layers = Array.from(bg.querySelectorAll('ul'));
+  const section = document.querySelector('.skills')
+  const bg = section.querySelector('.skills-bg')
+  const layers = Array.from(bg.querySelectorAll('ul'))
 
-  // Crear estilos solo una vez
-  if (!document.getElementById('skills-bg-style')) {
-    const style = document.createElement('style');
-    style.id = 'skills-bg-style';
-    style.textContent = `
-      .skills-bg ul {
-        position: absolute;
-        inset: 0;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        will-change: transform, opacity;
-      }
-      .skills-bg .skill-slot {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        display: grid;
-        place-items: center;
-      }
-      .skills-bg .skill-logo {
-        display: grid;
-        place-items: center;
-        width: ${config.imgSize};
-        height: ${config.imgSize};
+  // Estilos dinámicos para animación y barras
+  const style = document.createElement('style')
+  style.textContent = `
+    .skills-bg ul {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .skills-bg .skill-slot {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+    }
+    .skills-bg .skill-logo {
+      display: grid;
+      place-items: center;
+      width: ${config.imgSize};
+      height: ${config.imgSize};
+      opacity: 0;
+      animation: skills-appear ${config.duration}s infinite;
+    }
+    .skills-bg .skill-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 12px #fff);
+    }
+    @keyframes skills-appear {
+      0% {
+        filter: blur(${config.blur}px);
         opacity: 0;
-        animation: skills-appear ${config.duration}s infinite;
+        transform: translate(-${config.x}px, ${config.y}px) scale(0.9);
       }
-      .skills-bg .skill-logo img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 12px #fff);
-        will-change: transform, filter, opacity;
+      40%, 60% {
+        filter: blur(0);
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
       }
-      @keyframes skills-appear {
-        0% {
-          filter: blur(${config.blur}px);
-          opacity: 0;
-          transform: translate(-${config.x}px, ${config.y}px) scale(0.9);
-        }
-        40%, 60% {
-          filter: blur(0);
-          opacity: 1;
-          transform: translate(0, 0) scale(1);
-        }
-        100% {
-          filter: blur(${config.blur}px);
-          opacity: 0;
-          transform: translate(${config.x}px, -${config.y}px) scale(0.9);
-        }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  // 🔧 Usa requestIdleCallback o setTimeout para distribuir el render
-  const generateLogos = () => {
-    layers.forEach(ul => (ul.innerHTML = ""));
-
-    const { width: w, height: h } = section.getBoundingClientRect();
-
-    let spacing = config.spacing;
-    const rows = Math.floor(h / spacing);
-    if (rows < config.minRows) spacing = h / config.minRows;
-
-    const cols = Math.floor(w / spacing);
-    const offsetX = (w - cols * spacing) / 2;
-    const offsetY = (h - Math.floor(h / spacing) * spacing) / 2;
-
-    let idx = 0;
-    let totalNodes = 0;
-    const totalMax = config.maxNodes; // 👈 límite de performance
-
-    for (let r = 0; r < Math.floor(h / spacing); r++) {
-      for (let c = 0; c < cols; c++) {
-        if (totalNodes >= totalMax) break; // 👈 corta exceso
-        const ul = layers[(r + c) % layers.length];
-
-        const slot = document.createElement('div');
-        slot.className = "skill-slot";
-        slot.style.left = `${offsetX + c * spacing + spacing / 2}px`;
-        slot.style.top = `${offsetY + r * spacing + spacing / 2}px`;
-
-        const logoDiv = document.createElement('div');
-        logoDiv.className = "skill-logo";
-        logoDiv.style.animationDelay =
-          `${-(idx % config.itemsVisible) * (config.duration / config.itemsVisible)}s`;
-
-        const img = document.createElement('img');
-        img.loading = 'lazy'; // 👈 carga diferida
-        img.decoding = 'async';
-        img.src = logos[(idx + r + c) % logos.length];
-
-        logoDiv.appendChild(img);
-        slot.appendChild(logoDiv);
-        ul.appendChild(slot);
-
-        idx++;
-        totalNodes++;
+      100% {
+        filter: blur(${config.blur}px);
+        opacity: 0;
+        transform: translate(${config.x}px, -${config.y}px) scale(0.9);
       }
     }
-  };
 
-  // ⚙️ Evita recalcular en cada resize (usa debounce)
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(generateLogos, 250);
-  });
+    .skill-bar {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      height: 10px;
+      margin: 0.3rem 0;
+    }
+    .skill-fill {
+      background: var(--accent, #e55050);
+      height: 100%;
+      transition: width 0.5s ease-in-out;
+    }
+    .skill-percent {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+  `
+  document.head.appendChild(style)
 
-  // Carga inicial (en idle si es posible)
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(generateLogos);
-  } else {
-    setTimeout(generateLogos, 200);
+  // Generar rejilla de logos animados
+  const generateLogos = () => {
+    layers.forEach(ul => ul.innerHTML = "")
+
+    const { width: w, height: h } = section.getBoundingClientRect()
+
+    // Ajustar el spacing dinámicamente para asegurar al menos 4 filas
+    let spacing = config.spacing
+    const rows = Math.floor(h / spacing)
+    if (rows < config.minRows) spacing = h / config.minRows
+
+    const cols = Math.floor(w / spacing)
+    const offsetX = (w - cols * spacing) / 2
+    const offsetY = (h - Math.floor(h / spacing) * spacing) / 2
+
+    let idx = 0
+    for (let r = 0; r < Math.floor(h / spacing); r++) {
+      for (let c = 0; c < cols; c++) {
+        const ul = layers[(r + c) % layers.length]
+
+        const slot = document.createElement('div')
+        slot.className = "skill-slot"
+        slot.style.left = `${offsetX + c * spacing + spacing / 2}px`
+        slot.style.top  = `${offsetY + r * spacing + spacing / 2}px`
+
+        const logoDiv = document.createElement('div')
+        logoDiv.className = "skill-logo"
+        logoDiv.style.animationDelay = `${-(idx % config.itemsVisible) * (config.duration / config.itemsVisible)}s`
+
+        const img = document.createElement('img')
+        img.src = logos[(idx + r + c) % logos.length]
+        logoDiv.appendChild(img)
+
+        slot.appendChild(logoDiv)
+        ul.appendChild(slot)
+
+        idx++
+      }
+    }
   }
-});
 
+  window.addEventListener('resize', generateLogos)
+  generateLogos()
 
   /* ============================
      Ventana de categorías
