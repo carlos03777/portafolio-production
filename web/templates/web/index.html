@@ -292,12 +292,19 @@
     <div class="contact-content">
       <!-- Izquierda -->
       <div class="contact-left">
-        <form class="contact-form" action="{% url 'home' %}" method="post" novalidate>
+        <form class="contact-form" action="{% url 'web:home' %}" method="post" novalidate>
           <input type="text" name="name" placeholder="Nombre" required />
           <input type="email" name="email" placeholder="Email" required />
           <textarea name="message" rows="6" placeholder="Mensaje" required></textarea>
           <button type="submit">Enviar</button>
         </form>
+        {% if messages %}
+        <div class="contact-messages">
+          {% for message in messages %}
+          <p class="message {{ message.tags }}">{{ message }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
       </div>
 
       <!-- Derecha -->
@@ -338,8 +345,8 @@
             <i class="fa-brands fa-instagram"></i>
           </a>
 
-       
-     
+
+
         </div>
 
         <div class="contact-divider"></div>
