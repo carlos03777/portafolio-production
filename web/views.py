@@ -1,23 +1,45 @@
 # web/views.py
 from django.shortcuts import render, get_object_or_404
-from .models import Project
+from .models import Project, ContactMessage
+from django.contrib import messages
+
 
 # =============================
 # HOME PAGE
 # =============================
+from django.shortcuts import render
+from django.contrib import messages
+from .models import Profile, Project, ContactMessage  # 👈 asegúrate de tener el modelo de contacto
+
 def home(request):
     """
     Página principal del portafolio.
     - Muestra los proyectos publicados.
     - Carga la información del perfil activo.
+    - Procesa el formulario de contacto.
     """
-    # Obtener perfil activo (solo uno gracias al método save del modelo)
+    # Procesar formulario de contacto
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+
+        if name and email and message:
+            ContactMessage.objects.create(
+                name=name,
+                email=email,
+                message=message
+            )
+            messages.success(request, "¡Tu mensaje ha sido enviado con éxito!")
+        else:
+            messages.error(request, "Por favor completa todos los campos antes de enviar.")
+
+    # Obtener perfil activo
     profile = Profile.objects.filter(is_active=True).first()
 
-    # Obtener proyectos publicados y ordenados
-    projects = Project.objects.filter(is_published=True).order_by('order', '-created_at')
+    # Obtener proyectos publicados
+    projects = Project.objects.filter(is_published=True).order_by("order", "-created_at")
 
-    # Renderizar plantilla con contexto
     return render(request, "web/index.html", {
         "profile": profile,
         "projects": projects,
@@ -59,4 +81,3 @@ def about(request):
 # =============================
 def under_construction(request):
     return render(request, 'under_construction.html')
-

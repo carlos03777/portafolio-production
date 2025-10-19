@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from .models import Project, Technology, ProjectImage
+from .models import Project, Technology, ProjectImage,ContactMessage
 
 
 # -----------------------------
@@ -98,3 +98,14 @@ class ProfileAdmin(admin.ModelAdmin):
         if obj.is_active:
             Profile.objects.exclude(pk=obj.pk).update(is_active=False)
         super().save_model(request, obj, form, change)
+
+
+# -----------------------------
+# Contact
+# -----------------------------
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'created_at')
+    search_fields = ('name', 'email', 'message')
+    readonly_fields = ('created_at',)

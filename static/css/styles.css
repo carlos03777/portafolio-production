@@ -1273,7 +1273,6 @@ body.dark .hero-word_next {
 
 /* Responsive: más aire en móviles */
 @media (max-width: 768px) {
-  
 
   .skills-content {
     align-items: center;
@@ -1587,6 +1586,21 @@ body.dark .hero-word_next {
     margin-top: 1rem;
     opacity: 0.85;
   }
+
+  .contact-messages {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.message.success {
+  color: #4caf50;
+}
+
+.message.error {
+  color: #e53935;
+}
+
 
   /* ------ Light mode ------ */
   .theme-compare[data-theme="light"] .contact-content {
