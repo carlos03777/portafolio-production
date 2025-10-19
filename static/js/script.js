@@ -597,7 +597,7 @@ function loadParticles() {
 }
 
 // 3. Inicializa partículas
-loadParticles();
+loadParticles(tsparticles);
 
 // 4. Observa cambios en el modo (claro/oscuro)
 const observer = new MutationObserver(() => {
