@@ -409,7 +409,7 @@ body.dark .hero__static {
   align-items: center;
   width: fit-content;
   max-width: 100%;
-  padding: 0;
+  padding: 0 1rem;
   background-color: var(--accent);
   border-radius: 4px;
 }
