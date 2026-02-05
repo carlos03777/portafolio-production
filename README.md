@@ -1,10 +1,10 @@
-# 🌐 Portafolio Personal - Django + Railway + PostgreSQL + AWS S3
+#  Portafolio Personal - Django + Railway + PostgreSQL + AWS S3
 
 Proyecto **Portafolio** desarrollado en **Django 5**, desplegado en **Railway** con base de datos **PostgreSQL**, y preparado para manejar archivos estáticos y multimedia en **AWS S3**.
 
 ---
 
-## 🚀 Características principales
+##  Características principales
 
 - Backend en **Django 5**
 - Base de datos **PostgreSQL** (Railway)
@@ -16,7 +16,7 @@ Proyecto **Portafolio** desarrollado en **Django 5**, desplegado en **Railway** 
 
 ---
 
-## ⚙️ Requisitos
+## ⚙️Requisitos
 
 - Python 3.10 o superior  
 - pip  
@@ -26,9 +26,18 @@ Proyecto **Portafolio** desarrollado en **Django 5**, desplegado en **Railway** 
 
 ---
 
-## 🧩 Instalación local
+##  Instalación local
 
 1. **Clonar el repositorio**
    ```bash
    git clone 
    cd portafolio
+
+## **Galeria**
+
+![Mockup 1](static/img/mockups/p1.jpg)
+![Mockup 2](static/img/mockups/p2.jpg)
+![Mockup 3](static/img/mockups/p3.jpg)
+![Mockup 1](static/img/mockups/p4.jpg)
+![Mockup 2](static/img/mockups/p5.jpg)
+![Mockup 3](static/img/mockups/p6.jpg)
