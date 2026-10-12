@@ -3,209 +3,200 @@
 
 {% block title %}Inicio - Mi Portafolio{% endblock %}
 
+{% block meta_description %}{% if profile %}Portafolio de {{ profile.name }}. {{ profile.description|truncatechars:120 }}{% else %}Portafolio profesional de diseño y desarrollo web.{% endif %}{% endblock %}
+
 {% block content %}
 
-<!-- =============================
-       HERO
-============================= -->
+<!-- HERO -->
 <section class="hero" id="home">
+  <!-- Cielo estrellado y estrellas fugaces -->
+  <div class="hero__texture" aria-hidden="true">
+    <span class="hero__texture-path hero__texture-path--one"></span>
+    <span class="hero__texture-path hero__texture-path--two"></span>
+
+    <span class="hero__texture-node hero__texture-node--one"></span>
+    <span class="hero__texture-node hero__texture-node--two"></span>
+    <span class="hero__texture-node hero__texture-node--three"></span>
+  </div>
+
   <div class="hero-left">
     <div class="hero-title_row">
       <span class="hero-static">you can</span>
+
       <div class="hero-word_stack">
         <span class="hero-word hero-word_prev">design.</span>
+
         <div class="hero-dynamic_box">
           <span class="hero-word hero-word_current">solve.</span>
         </div>
+
         <span class="hero-word hero-word_next">build.</span>
       </div>
     </div>
+
     <p class="hero-scroll">scroll down ↓</p>
   </div>
 
   <div class="hero-right">
-    <!-- Imagen que se adapta a claro/oscuro automáticamente -->
-    <div class="hero-img"></div>
+    <div class="hero-img" aria-hidden="true"></div>
   </div>
 </section>
 
-
-<!-- =============================
-       ABOUT
-============================= -->
+<!-- SOBRE MÍ -->
 <section id="about">
-  <div class="section-title">
-    <h2>Sobre mí</h2>
-    <p class="subtitle">Diseñador & Desarrollador Web</p>
-  </div>
+ <header class="section-title">
+  <p class="section-eyebrow">Perfil profesional</p>
+  <h2 id="about-title">Sobre mí</h2>
+  <p class="subtitle">
+    {% if profile %}
+      {{ profile.title }}
+    {% else %}
+      Diseñador y desarrollador web
+    {% endif %}
+  </p>
+</header>
 
   <div class="about">
-    <!-- Columna izquierda: Card -->
     <div class="about-card">
-      <!-- Minimapa -->
-      <div class="minimap">
+      <div class="minimap" aria-hidden="true">
         <span>x: 0</span>
         <span>y: 0</span>
       </div>
 
-      <!-- Tarjeta holográfica -->
-      <div class="card3d" role="region" aria-label="Tarjeta holográfica de Carlos" data-active="false">
+      <div
+        class="card3d"
+        role="region"
+        aria-label="Tarjeta de presentación"
+        data-active="false"
+      >
         <div class="card3d-inner">
-
-          <!-- Frente -->
           <div class="card3d-front">
-            <h3 class="card3d-name"></h3>
+            <h3 class="card3d-name">
+              {% if profile %}{{ profile.name }}{% else %}Carl Os{% endif %}
+            </h3>
 
-            <!-- Fondo con highlight -->
-            <div class="card3d-bg">
+            <div class="card3d-bg" aria-hidden="true">
               <div class="face-highlight"></div>
             </div>
-            <div class="glare"></div>
+            <div class="glare" aria-hidden="true"></div>
 
-            <!-- Logos -->
-            <section class="logo-grid" aria-label="Tecnologías favoritas">
-              <div class="logo" style="--icon: url('{% static 'img/adobe.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/bootstrap.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/canva.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/css3.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/database.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/django.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/figma.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/github.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/illustrator.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/indesign.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/js.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/linux.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/notion.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/photoshop.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
-              <div class="logo" style="--icon: url('{% static 'img/python.svg' %}')">
-                <div class="logo-icon"></div>
-              </div>
+            <section class="logo-grid" aria-label="Tecnologías y herramientas">
+              <div class="logo" style="--icon: url('{% static 'img/adobe.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/bootstrap.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/canva.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/css3.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/database.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/django.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/figma.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/github.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/illustrator.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/indesign.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/js.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/linux.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/notion.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/photoshop.svg' %}')"><div class="logo-icon"></div></div>
+              <div class="logo" style="--icon: url('{% static 'img/python.svg' %}')"><div class="logo-icon"></div></div>
             </section>
 
-            <!-- Marca de agua -->
-            <div class="watermark">© 2025</div>
+            <div class="watermark">© {% now "Y" %}</div>
+            <div class="arrow" aria-hidden="true">↓</div>
 
-            <!-- Flecha -->
-            <div class="arrow">↓</div>
-
-            <!-- Botón flip -->
-            <button class="flip-btn" aria-pressed="false">
+            <button type="button" class="flip-btn" aria-pressed="false">
               Voltear
             </button>
           </div>
 
-          <!-- Reverso -->
           <div class="card3d-back">
             <div class="back-content">
               <div class="back-title">Mis redes</div>
+
               <div class="social-icons">
-                <a href="https://linkedin.com" target="_blank" rel="noopener">
-                  <img src="{% static 'img/linkedin.svg' %}" alt="LinkedIn" />
-                </a>
-                <a href="https://github.com" target="_blank" rel="noopener">
-                  <img src="{% static 'img/github.svg' %}" alt="GitHub" />
-                </a>
-                <a href="https://wa.me/123456789" target="_blank" rel="noopener">
-                  <img src="{% static 'img/whatsapp.svg' %}" alt="WhatsApp" />
-                </a>
+                {% if profile and profile.linkedin %}
+                  <a href="{{ profile.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <img src="{% static 'img/linkedin.svg' %}" alt="">
+                  </a>
+                {% endif %}
+
+                {% if profile and profile.github %}
+                  <a href="{{ profile.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <img src="{% static 'img/github.svg' %}" alt="">
+                  </a>
+                {% endif %}
+
+                {% if profile and profile.instagram %}
+                  <a href="{{ profile.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <img src="{% static 'img/instagram.svg' %}" alt="">
+                  </a>
+                {% endif %}
               </div>
             </div>
-            <button class="flip-btn">Ver frente</button>
+
+            <button type="button" class="flip-btn">Ver frente</button>
           </div>
         </div>
       </div>
     </div>
 
     <div class="about-content">
-
       {% if profile %}
-      <h2 class="about-title">{{ profile.name }}</h3>
+        <h2 class="about-title">{{ profile.name }}</h2>
         <p>{{ profile.description }}</p>
-        {% else %}
-        <p>No hay información disponible por el momento.</p>
-        {% endif %}
+      {% else %}
+        <p>No hay información del perfil disponible por el momento.</p>
+      {% endif %}
 
-        <div class="about-buttons">
-          <a href="{% url 'web:about' %}" class="btn about-btn">Ver más sobre mí</a>
-        </div>
+      <div class="about-buttons">
+        <a href="{% url 'web:about' %}" class="btn about-btn">
+          Ver más sobre mí
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-
-<!-- =============================
-       SKILLS
-============================= -->
+<!-- HABILIDADES -->
 <section class="skills" id="skills">
-  <!-- Fondo animado con rejilla de íconos -->
-  <div class="skills-bg">
+  <div class="skills-bg" aria-hidden="true">
     <ul>
-      <li><img src="" alt="HTML"></li>
-      <li><img src="" alt="CSS"></li>
-      <li><img src="" alt="JavaScript"></li>
+      <li><img alt="HTML"></li>
+      <li><img alt="CSS"></li>
+      <li><img alt="JavaScript"></li>
     </ul>
     <ul>
-      <li><img src="" alt="Python"></li>
-      <li><img src="" alt="Django"></li>
+      <li><img alt="Python"></li>
+      <li><img alt="Django"></li>
     </ul>
     <ul>
-      <li><img src="" alt="Photoshop"></li>
-      <li><img src="" alt="Illustrator"></li>
+      <li><img alt="Photoshop"></li>
+      <li><img alt="Illustrator"></li>
     </ul>
     <ul>
-      <li><img src="" alt="Git"></li>
-      <li><img src="" alt="Figma"></li>
+      <li><img alt="Git"></li>
+      <li><img alt="Figma"></li>
     </ul>
     <ul>
-      <li><img src="" alt="HTML"></li>
-      <li><img src="" alt="CSS"></li>
-      <li><img src="" alt="JavaScript"></li>
+      <li><img alt="HTML"></li>
+      <li><img alt="CSS"></li>
+      <li><img alt="JavaScript"></li>
     </ul>
     <ul>
-      <li><img src="" alt="Photoshop"></li>
-      <li><img src="" alt="Illustrator"></li>
+      <li><img alt="Photoshop"></li>
+      <li><img alt="Illustrator"></li>
     </ul>
     <ul>
-      <li><img src="" alt="Git"></li>
-      <li><img src="" alt="Figma"></li>
+      <li><img alt="Git"></li>
+      <li><img alt="Figma"></li>
     </ul>
-    <ul>
   </div>
 
-  <!-- Contenedor principal del contenido -->
   <div class="container">
-    <div class="container-title">
-      <h2 class="skill-title">Mis Habilidades</h2>
-    </div>
+    <header class="container-title section-title">
+  <p class="section-eyebrow">Herramientas y competencias</p>
+  <h2 id="skills-title">Mis habilidades</h2>
+  <p class="subtitle">
+    Tecnologías y disciplinas que aplico en mis proyectos.
+  </p>
+</header>
 
     <div class="skills-content">
       <div class="skills-categories">
@@ -216,7 +207,7 @@
           <span class="category-title">Backend</span>
         </div>
         <div class="skill-category" data-category="design">
-          <span class="category-title">Diseño & Multimedia</span>
+          <span class="category-title">Diseño y multimedia</span>
         </div>
         <div class="skill-category" data-category="tools">
           <span class="category-title">Herramientas</span>
@@ -231,134 +222,287 @@
   </div>
 </section>
 
+<!-- PROYECTOS -->
+<section class="projects" id="projects" aria-labelledby="projects-title">
+  <div id="tsparticles" aria-hidden="true"></div>
 
-<!-- =============================
-       PROJECTS
-============================= -->
-<section class="projects" id="projects">
-  <!-- Partículas de fondo -->
-  <div id="tsparticles"></div>
+  <div class="projects__inner">
+    <header class="projects__header section-title">
+      <div class="projects__heading">
+        <p class="section-eyebrow">Selección de trabajos</p>
+        <h2 id="projects-title">Proyectos</h2>
+        <p class="subtitle">Interfaz + código + experiencia.</p>
+      </div>
 
-  <!-- Título de sección -->
-  <div class="section-title">
-    <h2>Proyectos</h2>
-    <p class="subtitle">Interfaz + Código + Experiencia</p>
-  </div>
+      <a href="{% url 'web:projects' %}" class="projects__all-link">
+        Explorar todos los proyectos
+        <span aria-hidden="true">→</span>
+      </a>
+    </header>
 
-  <!-- Contenedor de proyectos -->
-  <div class="projects-container">
-    <div class="projects-grid">
-      {% for p in projects %}
-      <article class="project">
-        <div class="project-image">
-          {% if p.featured_image %}
-          <img src="{{ p.featured_image.url }}" alt="{{ p.title }}">
-          {% else %}
-          <img src="{{ p.featured_image.url }}" alt="{{ p.title }}">
-          {% endif %}
-          <div class="project__glare"></div>
-        </div>
-        <div class="project-content">
-          <h3 class="project-title">{{ p.title }}</h3>
-          <p class="project-desc">{{ p.excerpt }}</p>
-          <a href="{% url 'web:project_detail' p.slug %}" class="project-link" target="_blank">Ver proyecto</a>
-        </div>
-      </article>
-      {% empty %}
-      <p>No hay proyectos todavía.</p>
-      {% endfor %}
+    <div class="projects-container">
+      <div class="projects-grid">
+        {% for p in projects %}
+          <article class="project">
+            <a
+              href="{% url 'web:project_detail' p.slug %}"
+              class="project__image-link"
+              aria-label="Ver proyecto: {{ p.title }}"
+            >
+              <div class="project-image">
+                {% if p.featured_image %}
+                  <img
+                    src="{{ p.featured_image.url }}"
+                    alt="Imagen del proyecto {{ p.title }}"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                {% else %}
+                  <div
+                    class="project-image-placeholder"
+                    role="img"
+                    aria-label="Proyecto sin imagen"
+                  ></div>
+                {% endif %}
+                <div class="project-glare" aria-hidden="true"></div>
+              </div>
+            </a>
+
+            <div class="project-content">
+              <h3 class="project-title">{{ p.title }}</h3>
+
+              {% if p.excerpt %}
+                <p class="project-desc">{{ p.excerpt }}</p>
+              {% endif %}
+
+              {% with technologies=p.technologies.all %}
+                {% if technologies %}
+                  <ul class="project__technologies" aria-label="Tecnologías del proyecto">
+                    {% for technology in technologies|slice:":4" %}
+                      <li>{{ technology.name }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              {% endwith %}
+
+              <a href="{% url 'web:project_detail' p.slug %}" class="project-link">
+                Ver proyecto
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        {% empty %}
+          <p class="projects__empty">No hay proyectos publicados todavía.</p>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>
-
-
-<!-- =============================
-       CONTACT
-============================= -->
+<!-- CONTACTO -->
 <section class="theme-compare" data-theme="light" id="contact">
-  <!-- Fondo lado claro -->
-  <div class="theme-side theme-light"></div>
+  <div class="theme-side theme-light" aria-hidden="true"></div>
+  <div class="theme-side theme-dark" aria-hidden="true"></div>
 
-  <!-- Fondo lado oscuro -->
-  <div class="theme-side theme-dark"></div>
+  <div
+    class="contact-heading section-title"
+    role="heading"
+    aria-level="2"
+    aria-label="Contáctame"
+  >
+    <p class="section-eyebrow contact-heading__eyebrow" aria-hidden="true">
+      Hablemos
+    </p>
 
-  <div class="contact-heading" aria-label="Contáctame">
     <span class="heading-left" aria-hidden="true">Contáctame</span>
     <span class="heading-right" aria-hidden="true">Contáctame</span>
   </div>
 
-  <!-- Contenido único -->
   <div class="contact-inner">
     <div class="contact-content">
-      <!-- Izquierda -->
       <div class="contact-left">
-        <form class="contact-form" action="{% url 'web:home' %}#contact" method="post" novalidate>
-            {% csrf_token %}
+        <form
+          class="contact-form"
+          action="{% url 'web:home' %}#contact"
+          method="post"
+        >
+          {% csrf_token %}
 
-          <input type="text" name="name" placeholder="Nombre" required />
-          <input type="email" name="email" placeholder="Email" required />
-          <textarea name="message" rows="6" placeholder="Mensaje" required></textarea>
+          <input
+            type="text"
+            name="name"
+            placeholder="Nombre"
+            aria-label="Nombre"
+            autocomplete="name"
+            maxlength="100"
+            required
+          >
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            aria-label="Correo electrónico"
+            autocomplete="email"
+            maxlength="254"
+            required
+          >
+
+          <textarea
+            name="message"
+            rows="6"
+            placeholder="Mensaje"
+            aria-label="Mensaje"
+            required
+          ></textarea>
+
           <button type="submit">Enviar</button>
         </form>
+
         {% if messages %}
-        <div class="contact-messages">
-          {% for message in messages %}
-          <p class="message {{ message.tags }}">{{ message }}</p>
-          {% endfor %}
-        </div>
+          <div class="contact-messages" role="status" aria-live="polite">
+            {% for message in messages %}
+              <p class="message {{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+          </div>
         {% endif %}
       </div>
 
-      <!-- Derecha -->
       <div class="contact-right">
         <div class="contact-info">
-          <i class="fa-solid fa-location-dot"></i>
-          <p class="">Bogota, Colombia</p>
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          <p>
+            <span class="contact-info__text">
+              {% if profile and profile.location %}
+                {{ profile.location }}
+              {% else %}
+                Bogotá, Colombia
+              {% endif %}
+            </span>
+          </p>
         </div>
+
         <div class="contact-info">
-          <i class="fa-solid fa-phone"></i>
-          <p>(+57)320 323 1065</p>
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          <p>
+            <span class="contact-info__text">(+57) 320 323 1065</span>
+          </p>
         </div>
+
         <div class="contact-info">
-          <i class="fa-solid fa-envelope"></i>
-          <p>carlosforero2025777@gmail.com</p>
+          <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+          <p>
+            {% if profile and profile.email %}
+              <a class="contact-info__text" href="mailto:{{ profile.email }}">
+                {{ profile.email }}
+              </a>
+            {% else %}
+              <span class="contact-info__text">
+                carlosforero2025777@gmail.com
+              </span>
+            {% endif %}
+          </p>
         </div>
 
         <div class="contact-divider"></div>
 
         <div class="contact-icons">
-          <a href="{{ profile.github|default:'#' }}" target="_blank"
-            class="{% if not profile.github %}disabled{% endif %}">
-            <i class="fa-brands fa-github"></i>
-          </a>
+          {% if profile and profile.github %}
+            <a
+              href="{{ profile.github }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+            >
+              <i class="fa-brands fa-github" aria-hidden="true"></i>
+            </a>
+          {% else %}
+            <a
+              class="disabled"
+              aria-label="GitHub no configurado"
+              aria-disabled="true"
+              tabindex="-1"
+            >
+              <i class="fa-brands fa-github" aria-hidden="true"></i>
+            </a>
+          {% endif %}
 
-          <a href="{{ profile.linkedin|default:'#' }}" target="_blank"
-            class="{% if not profile.linkedin %}disabled{% endif %}">
-            <i class="fa-brands fa-linkedin"></i>
-          </a>
+          {% if profile and profile.linkedin %}
+            <a
+              href="{{ profile.linkedin }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+            </a>
+          {% else %}
+            <a
+              class="disabled"
+              aria-label="LinkedIn no configurado"
+              aria-disabled="true"
+              tabindex="-1"
+            >
+              <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+            </a>
+          {% endif %}
 
-          <a href="{{ profile.behance|default:'#' }}" target="_blank"
-            class="{% if not profile.behance %}disabled{% endif %}">
-            <i class="fa-brands fa-behance"></i>
-          </a>
+          {% if profile and profile.behance %}
+            <a
+              href="{{ profile.behance }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Behance"
+            >
+              <i class="fa-brands fa-behance" aria-hidden="true"></i>
+            </a>
+          {% else %}
+            <a
+              class="disabled"
+              aria-label="Behance no configurado"
+              aria-disabled="true"
+              tabindex="-1"
+            >
+              <i class="fa-brands fa-behance" aria-hidden="true"></i>
+            </a>
+          {% endif %}
 
-          <a href="{{ profile.instagram|default:'#' }}" target="_blank"
-            class="{% if not profile.instagram %}disabled{% endif %}">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
-
-
-
+          {% if profile and profile.instagram %}
+            <a
+              href="{{ profile.instagram }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+          {% else %}
+            <a
+              class="disabled"
+              aria-label="Instagram no configurado"
+              aria-disabled="true"
+              tabindex="-1"
+            >
+              <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+            </a>
+          {% endif %}
         </div>
 
         <div class="contact-divider"></div>
-        <div class="contact-footer">© ALL OF THE RIGHTS RESERVED</div>
+
+        <div class="contact-footer">
+          © ALL OF THE RIGHTS RESERVED
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Handle -->
-  <button class="theme-handle" aria-label="Mover divisor">⇆</button>
+  <button
+    type="button"
+    class="theme-handle"
+    aria-label="Mover divisor"
+  >
+    ⇆
+  </button>
 </section>
 
 {% endblock %}

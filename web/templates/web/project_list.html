@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Proyectos | Carl Os{% endblock %}
+
+{% block head_extra %}
+  <link rel="stylesheet" href="{% static 'css/project-list.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="project-archive">
+
+  <header class="project-archive__hero">
+    <div class="project-archive__hero-content">
+      <p class="project-archive__eyebrow">Portafolio · Selección de trabajos</p>
+      <h1 class="project-archive__title">Proyectos</h1>
+      <p class="project-archive__description">
+        Desarrollo web, diseño y piezas visuales. Explora proyectos que reúnen
+        código, criterio visual y soluciones para diferentes necesidades.
+      </p>
+    </div>
+    <span class="project-archive__hero-orbit" aria-hidden="true"></span>
+  </header>
+
+  <section
+    class="project-archive__catalog"
+    aria-labelledby="project-archive-results-title"
+  >
+    <div class="project-archive__toolbar">
+      <div class="project-archive__toolbar-heading">
+        <p class="project-archive__eyebrow">El trabajo, por disciplina</p>
+        <h2 id="project-archive-results-title" class="project-archive__section-title">
+          Explora mi trabajo
+        </h2>
+      </div>
+
+      <form
+        class="project-search"
+        action="{% url 'web:projects' %}"
+        method="get"
+        role="search"
+      >
+        {% if selected_category %}
+          <input type="hidden" name="category" value="{{ selected_category }}">
+        {% endif %}
+
+        <label class="project-search__label" for="project-search-input">
+          Buscar proyectos
+        </label>
+
+        <div class="project-search__field">
+          <input
+            id="project-search-input"
+            class="project-search__input"
+            type="search"
+            name="q"
+            value="{{ search_query|default:'' }}"
+            placeholder="Buscar por nombre o tecnología…"
+            autocomplete="off"
+          >
+          <button class="project-search__button" type="submit">
+            <span>Buscar</span>
+            <span aria-hidden="true">⌕</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="project-archive__layout">
+
+      <aside class="project-sidebar" aria-label="Filtros y selección de proyectos">
+
+        <section class="project-sidebar__section">
+          <h3 class="project-sidebar__title">Categorías</h3>
+
+          <nav class="project-category-list" aria-label="Filtrar por categoría">
+            <a
+              class="project-category-list__link{% if not selected_category %} is-active{% endif %}"
+              href="{% url 'web:projects' %}{% if search_query %}?q={{ search_query|urlencode }}{% endif %}"
+              {% if not selected_category %}aria-current="page"{% endif %}
+            >
+              <span>Todos los proyectos</span>
+            </a>
+
+            {% for value, label in categories %}
+              <a
+                class="project-category-list__link{% if selected_category == value %} is-active{% endif %}"
+                href="{% url 'web:projects' %}?category={{ value|urlencode }}{% if search_query %}&q={{ search_query|urlencode }}{% endif %}"
+                {% if selected_category == value %}aria-current="page"{% endif %}
+              >
+                <span>{{ label }}</span>
+              </a>
+            {% endfor %}
+          </nav>
+        </section>
+
+        {% if featured_projects %}
+          <section class="project-sidebar__section project-sidebar__featured">
+            <h3 class="project-sidebar__title">Proyectos destacados</h3>
+            <p class="project-sidebar__hint">
+              Una selección de trabajos representativos.
+            </p>
+
+            <div class="featured-project-list">
+              {% for featured in featured_projects %}
+                <a
+                  class="featured-project"
+                  href="{% url 'web:project_detail' featured.slug %}"
+                >
+                  {% if featured.featured_image %}
+                    <img
+                      class="featured-project__image"
+                      src="{{ featured.featured_image.url }}"
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                    >
+                  {% else %}
+                    <span class="featured-project__placeholder" aria-hidden="true">
+                      {{ featured.get_category_display }}
+                    </span>
+                  {% endif %}
+
+                  <span class="featured-project__info">
+                    <span class="featured-project__name">{{ featured.title }}</span>
+                    <span class="featured-project__category">
+                      {{ featured.get_category_display }}
+                    </span>
+                  </span>
+                </a>
+              {% endfor %}
+            </div>
+          </section>
+        {% endif %}
+
+      </aside>
+
+      <div class="project-results">
+        <div class="project-results__header">
+          {% if search_query %}
+            <p class="project-results__summary">
+              Resultados para <strong>“{{ search_query }}”</strong>
+            </p>
+          {% elif selected_category %}
+            <p class="project-results__summary">
+              Mostrando proyectos de la categoría seleccionada.
+            </p>
+          {% else %}
+            <p class="project-results__summary">
+              Una selección de proyectos de desarrollo y diseño.
+            </p>
+          {% endif %}
+
+          {% if projects %}
+            <p class="project-archive__count">
+              {{ projects|length }}
+              {% if projects|length == 1 %}proyecto{% else %}proyectos{% endif %}
+            </p>
+          {% endif %}
+        </div>
+
+        {% if projects %}
+          <div class="project-archive__grid">
+            {% for project in projects %}
+              <article class="archive-project">
+                <a
+                  class="archive-project__image-link"
+                  href="{% url 'web:project_detail' project.slug %}"
+                  aria-label="Ver el proyecto: {{ project.title }}"
+                >
+                  <div class="archive-project__image">
+                    {% if project.featured_image %}
+                      <img
+                        src="{{ project.featured_image.url }}"
+                        alt="{{ project.title }}"
+                        loading="lazy"
+                        decoding="async"
+                      >
+                    {% else %}
+                      <div class="archive-project__placeholder" aria-hidden="true">
+                        <span>{{ project.get_category_display }}</span>
+                      </div>
+                    {% endif %}
+
+                    <span class="archive-project__category">
+                      {{ project.get_category_display }}
+                    </span>
+
+                    {% if project.is_featured %}
+                      <span class="archive-project__featured-badge">
+                        Destacado
+                      </span>
+                    {% endif %}
+
+                    <span class="archive-project__image-arrow" aria-hidden="true">
+                      ↗
+                    </span>
+                  </div>
+                </a>
+
+                <div class="archive-project__content">
+                  <div class="archive-project__heading">
+                    <h3 class="archive-project__title">
+                      <a href="{% url 'web:project_detail' project.slug %}">
+                        {{ project.title }}
+                      </a>
+                    </h3>
+
+                    {% if project.year %}
+                      <span class="archive-project__year">{{ project.year }}</span>
+                    {% endif %}
+                  </div>
+
+                  {% if project.excerpt %}
+                    <p class="archive-project__excerpt">{{ project.excerpt }}</p>
+                  {% endif %}
+
+                  {% if project.client or project.role %}
+                    <dl class="archive-project__details">
+                      {% if project.client %}
+                        <div class="archive-project__detail">
+                          <dt>Cliente</dt>
+                          <dd>{{ project.client }}</dd>
+                        </div>
+                      {% endif %}
+
+                      {% if project.role %}
+                        <div class="archive-project__detail">
+                          <dt>Mi aporte</dt>
+                          <dd>{{ project.role }}</dd>
+                        </div>
+                      {% endif %}
+                    </dl>
+                  {% endif %}
+
+                  {% with technologies=project.technologies.all %}
+                    {% if technologies %}
+                      <ul
+                        class="archive-project__technologies"
+                        aria-label="Tecnologías y herramientas"
+                      >
+                        {% for technology in technologies %}
+                          <li>{{ technology.name }}</li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  {% endwith %}
+
+                  <a
+                    class="archive-project__link"
+                    href="{% url 'web:project_detail' project.slug %}"
+                  >
+                    Ver proyecto
+                    <span aria-hidden="true">→</span>
+                  </a>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="project-archive__empty">
+            {% if search_query %}
+              <p class="project-archive__empty-title">
+                No encontramos proyectos con esa búsqueda.
+              </p>
+              <p>Prueba con otro nombre, categoría o tecnología.</p>
+            {% else %}
+              <p class="project-archive__empty-title">
+                No hay proyectos en esta categoría todavía.
+              </p>
+              <p>Elige otra categoría para ver más trabajos.</p>
+            {% endif %}
+
+            <a href="{% url 'web:projects' %}">Ver todos los proyectos</a>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </section>
+
+  <section
+    class="project-archive__contact"
+    aria-labelledby="project-archive-contact-title"
+  >
+    <p class="project-archive__eyebrow">¿Tienes una idea en mente?</p>
+    <h2 id="project-archive-contact-title">
+      Hablemos de lo que podemos crear.
+    </h2>
+    <a
+      href="{% url 'web:home' %}#contact"
+      class="project-archive__contact-link"
+    >
+      Contactar
+      <span aria-hidden="true">→</span>
+    </a>
+  </section>
+
+</main>
+{% endblock %}

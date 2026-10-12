@@ -1,26 +1,28 @@
 """
-Django settings for portfolio project.
+Django settings for local portfolio development.
 """
 
 from pathlib import Path
-import os
 from decouple import config
-import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ==============================
-#  SEGURIDAD Y CONFIGURACIÓN BÁSICA
-# ==============================
-
-SECRET_KEY = config("SECRET_KEY", default="clave-temporal-cambiar")
+# Configuración local
+SECRET_KEY = config(
+    "SECRET_KEY",
+    default="django-insecure-local-only-do-not-use-for-deployment",
+)
 DEBUG = config("DEBUG", default=True, cast=bool)
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="localhost,127.0.0.1,.railway.app").split(",")
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in config(
+        "ALLOWED_HOSTS",
+        default="localhost,127.0.0.1,[::1]",
+    ).split(",")
+    if host.strip()
+]
 
-# ==============================
-#  APLICACIONES INSTALADAS
-# ==============================
-
+# Aplicaciones
 INSTALLED_APPS = [
     "jazzmin",
     "django.contrib.admin",
@@ -30,16 +32,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "web",
-    "storages",
 ]
 
-# ==============================
-#  MIDDLEWARE
-# ==============================
-
+# Middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -50,10 +47,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "portfolio.urls"
 
-# ==============================
-#  TEMPLATES
-# ==============================
-
+# Plantillas
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -70,118 +64,82 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "portfolio.wsgi.application"
+ASGI_APPLICATION = "portfolio.asgi.application"
 
-# ==============================
-#  BASE DE DATOS
-# ==============================
-
+# Base de datos local
 DATABASES = {
-    "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR / 'db.sqlite3'}"),
-        conn_max_age=600,
-        conn_health_checks=True,
-        ssl_require=not os.getenv("DEBUG", "").lower() == "true",
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
 
-# ==============================
-#  CSRF
-# ==============================
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://web-production-3cca.up.railway.app",
-    "https://*.railway.app",
-]
-
-# ==============================
-#  VALIDACIÓN DE CONTRASEÑAS
-# ==============================
-
+# Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+    {
+        "NAME": (
+            "django.contrib.auth.password_validation."
+            "UserAttributeSimilarityValidator"
+        )
+    },
+    {
+        "NAME": (
+            "django.contrib.auth.password_validation."
+            "MinimumLengthValidator"
+        )
+    },
+    {
+        "NAME": (
+            "django.contrib.auth.password_validation."
+            "CommonPasswordValidator"
+        )
+    },
+    {
+        "NAME": (
+            "django.contrib.auth.password_validation."
+            "NumericPasswordValidator"
+        )
+    },
 ]
 
-# ==============================
-#  INTERNACIONALIZACIÓN
-# ==============================
-
+# Idioma y zona horaria
 LANGUAGE_CODE = "es"
 TIME_ZONE = "America/Bogota"
 USE_I18N = True
 USE_TZ = True
 
-# ==============================
-#  ARCHIVOS ESTÁTICOS
-# ==============================
-
+# Archivos estáticos del proyecto
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
-# ==============================
-#  SEGURIDAD EXTRA
-# ==============================
+# Imágenes y documentos cargados desde el admin
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
-if not DEBUG:
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-
-# ==============================
-#  LOGGING
-# ==============================
-
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {"console": {"class": "logging.StreamHandler"}},
-    "root": {"handlers": ["console"], "level": "WARNING"},
-}
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# ==============================
-#  AWS S3 CONFIGURACIÓN
-# ==============================
-
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME", "us-east-2")
-
-AWS_DEFAULT_ACL = None
-AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
-AWS_QUERYSTRING_AUTH = False
-AWS_S3_FILE_OVERWRITE = False
-AWS_S3_SIGNATURE_VERSION = "s3v4"
-
-# Dominio personalizado del bucket (para evitar URLs firmadas)
-AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
-
-# Rutas de subida y acceso
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-MEDIA_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/media/"
-
+# Almacenamiento local de archivos
 STORAGES = {
     "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
 
-# ==============================
-#  DEBUG DE CONFIGURACIÓN (solo logs)
-# ==============================
+# Registro
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+}
 
-print("🪣 S3 CONFIGURATION:")
-print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}")
-print(f"MEDIA_URL: {MEDIA_URL}")
-print(f"AWS_ACCESS_KEY_ID: {' SET' if AWS_ACCESS_KEY_ID else ' MISSING'}")
-
-
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

@@ -1,101 +1,169 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 
+{% block title %}
+  {% if profile %}Sobre mí - {{ profile.name }}{% else %}Sobre mí{% endif %}
+{% endblock %}
+
+{% block meta_description %}
+  {% if profile %}
+    Perfil profesional de {{ profile.name }}: {{ profile.title }}.
+  {% else %}
+    Conoce más sobre mi perfil profesional.
+  {% endif %}
+{% endblock %}
+
 {% block head_extra %}
-  <!-- Estilos específicos para la vista de perfil -->
   <link rel="stylesheet" href="{% static 'css/about.css' %}">
 {% endblock %}
 
 {% block content %}
-<!-- =============================
-       DETALLE DE PERFIL
-============================== -->
 <section class="about-detail">
-  
-  <!-- =============================
-        ENCABEZADO (HERO)
-  ============================== -->
-  <header class="about-detail__header">
-    <div class="about-detail__header-overlay"></div>
+  {% if profile %}
+    <header class="about-detail__header">
+      <div class="about-detail__header-overlay" aria-hidden="true"></div>
 
-    <!-- {% if profile.photo %}
-      <img src="{{ profile.photo.url }}" alt="{{ profile.name }}" class="project-detail__header-image">
-    {% else %}
-      <img src="{% static 'img/default-profile.png' %}" alt="Foto de perfil" class="project-detail__header-image">
-    {% endif %} -->
+      <div class="about-detail__header-content">
+        <p class="about-detail__eyebrow">Perfil profesional</p>
+        <h1 class="about-detail_title">{{ profile.name }}</h1>
+        <p class="about-detail__subtitle">{{ profile.title }}</p>
 
-    <div class="about-detail__header-content">
-      <h1 class="about-detail_title">{{ profile.name }}</h1>
-      <p class="about-detail__subtitle">{{ profile.title }}</p>
-    </div>
-  </header>
-
-  <!-- =============================
-        CONTENIDO PRINCIPAL
-  ============================== -->
-  <div class="about-detail__body container">
-
-    <!-- FOTO DE PERFIL -->
-    <div class="about-detail__gallery" >
-      {% if profile.photo %}
-        <img src="{{ profile.photo.url }}" alt="{{ profile.name }}">
-      {% else %}
-        <img src="{% static 'img/default-profile.png' %}" alt="Foto de perfil">
-      {% endif %}
-    </div>
-
-    <!-- DESCRIPCIÓN -->
-    <div class="about-detail__description">
-      <p>{{ profile.description|linebreaks }}</p>
-    </div>
-
-    <!-- REDES SOCIALES -->
-    <div class="about-detail__tech">
-      <h3 class="about-detail__tech-title">Conecta conmigo</h3>
-      <ul class="about-detail__tech-list">
-        {% if profile.github %}
-          <li class="about-detail__tech-item">
-            <a href="{{ profile.github }}" target="_blank" rel="noopener">GitHub</a>
-          </li>
+        {% if profile.location %}
+          <p class="about-detail__location">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            {{ profile.location }}
+          </p>
         {% endif %}
-        {% if profile.linkedin %}
-          <li class="about-detail__tech-item">
-            <a href="{{ profile.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>
-          </li>
-        {% endif %}
-        {% if profile.behance %}
-          <li class="about-detail__tech-item">
-            <a href="{{ profile.behance }}" target="_blank" rel="noopener">Behance</a>
-          </li>
-        {% endif %}
-        {% if profile.instagram %}
-          <li class="about-detail__tech-item">
-            <a href="{{ profile.instagram }}" target="_blank" rel="noopener">Instagram</a>
-          </li>
-        {% endif %}
-        {% if profile.website %}
-          <li class="about-detail__tech-item">
-            <a href="{{ profile.website }}" target="_blank" rel="noopener">Sitio web</a>
-          </li>
-        {% endif %}
-      </ul>
-    </div>
+      </div>
+    </header>
 
-    <!-- ENLACES -->
-    <div class="about-detail__links">
-      {% if profile.cv_file %}
-        <a href="{{ profile.cv_file.url }}" class="about-detail__btn-link" download>
-          Descargar CV
-        </a>
-      {% endif %}
-      {% if profile.email %}
-        <a href="mailto:{{ profile.email }}" class="about-detail__btn-link">
-          Contactar
-        </a>
-      {% endif %}
-    </div>
+    <div class="about-detail__body container">
+      <figure class="about-detail__gallery">
+        {% if profile.photo %}
+          <img
+            src="{{ profile.photo.url }}"
+            alt="Retrato de {{ profile.name }}"
+            loading="eager"
+            decoding="async"
+          >
+        {% else %}
+          <img
+            src="{% static 'img/default-profile.png' %}"
+            alt="Foto de perfil no disponible"
+            loading="lazy"
+            decoding="async"
+          >
+        {% endif %}
+        <figcaption class="about-detail__photo-caption">
+          {{ profile.title }}
+        </figcaption>
+      </figure>
 
-  </div>
+      <div class="about-detail__description">
+        <p class="about-detail__eyebrow">Sobre mí</p>
+        {% if profile.description %}
+          {{ profile.description|linebreaks }}
+        {% else %}
+          <p>La descripción del perfil estará disponible próximamente.</p>
+        {% endif %}
+      </div>
+
+      <section class="about-detail__tech" aria-labelledby="about-social-title">
+        <header class="about-detail__tech-heading section-title">
+  <p class="section-eyebrow">REDES Y CONTACTO</p>
+
+  <h2 id="about-social-title">
+    Conecta conmigo
+  </h2>
+
+  <p class="subtitle">
+    Encuéntrame en las plataformas donde comparto mi trabajo.
+  </p>
+</header>
+
+        <ul class="about-detail__tech-list">
+          {% if profile.github %}
+            <li class="about-detail__tech-item">
+              <a href="{{ profile.github }}" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
+                <span>GitHub</span>
+              </a>
+            </li>
+          {% endif %}
+
+          {% if profile.linkedin %}
+            <li class="about-detail__tech-item">
+              <a href="{{ profile.linkedin }}" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                <span>LinkedIn</span>
+              </a>
+            </li>
+          {% endif %}
+
+          {% if profile.behance %}
+            <li class="about-detail__tech-item">
+              <a href="{{ profile.behance }}" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-behance" aria-hidden="true"></i>
+                <span>Behance</span>
+              </a>
+            </li>
+          {% endif %}
+
+          {% if profile.instagram %}
+            <li class="about-detail__tech-item">
+              <a href="{{ profile.instagram }}" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                <span>Instagram</span>
+              </a>
+            </li>
+          {% endif %}
+
+          {% if profile.website %}
+            <li class="about-detail__tech-item">
+              <a href="{{ profile.website }}" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                <span>Sitio web</span>
+              </a>
+            </li>
+          {% endif %}
+
+          {% if not profile.github and not profile.linkedin and not profile.behance and not profile.instagram and not profile.website %}
+            <li class="about-detail__tech-item">
+              <span>Los enlaces estarán disponibles próximamente.</span>
+            </li>
+          {% endif %}
+        </ul>
+      </section>
+
+      <div class="about-detail__links">
+        {% if profile.cv_file %}
+          <a
+            href="{{ profile.cv_file.url }}"
+            class="about-detail__btn-link"
+            download
+          >
+            <i class="fa-solid fa-download" aria-hidden="true"></i>
+            Descargar CV
+          </a>
+        {% endif %}
+
+        {% if profile.email %}
+          <a
+            href="mailto:{{ profile.email }}"
+            class="about-detail__btn-link"
+          >
+            <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+            Contactar
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div class="about-detail__empty">
+      <h1>Perfil en preparación</h1>
+      <p>La información estará disponible próximamente.</p>
+      <a href="{% url 'web:home' %}">Volver al inicio</a>
+    </div>
+  {% endif %}
 </section>
 {% endblock %}
-
